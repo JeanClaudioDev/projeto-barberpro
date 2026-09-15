@@ -1,0 +1,443 @@
+/* =========================
+   PÁGINA
+========================= */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  background-color: #575A5E;
+}
+
+
+/* =========================
+   LADO ESQUERDO - IMAGEM
+========================= */
+
+.login-image {
+  flex: 1;
+  position: relative;
+
+  background-image: url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1");
+  background-size: cover;
+  background-position: center;
+
+  padding: 48px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  overflow: hidden;
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    160deg,
+    rgba(34, 40, 35, 0.90),
+    rgba(87, 90, 94, 0.65)
+  );
+}
+
+.login-brand,
+.login-message {
+  position: relative;
+  z-index: 1;
+}
+
+.login-brand h2 {
+  color: #F4F7F5;
+  font-size: 22px;
+}
+
+.login-message h1 {
+  color: #F4F7F5;
+
+  font-size: 40px;
+  line-height: 1.15;
+
+  margin-bottom: 15px;
+}
+
+.login-message p {
+  color: #A7A2A9;
+
+  max-width: 360px;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   ÁREA DO FORMULÁRIO
+========================= */
+
+.login-form-area {
+  width: 480px;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  background-color: #575A5E;
+}
+
+.login-content {
+  width: 100%;
+  max-width: 380px;
+
+  background-color: #222823;
+
+  padding: 35px;
+
+  border-radius: 18px;
+}
+
+.login-content h1 {
+  color: #F4F7F5;
+
+  font-size: 30px;
+
+  margin-bottom: 5px;
+}
+
+.login-description {
+  color: #A7A2A9;
+
+  font-size: 14px;
+
+  margin-bottom: 30px;
+}
+
+
+/* =========================
+   ENTRAR / CADASTRAR
+========================= */
+
+.mode-buttons {
+  display: flex;
+  gap: 5px;
+
+  padding: 5px;
+  margin-bottom: 20px;
+
+  border-radius: 10px;
+
+  background-color: #575A5E;
+}
+
+.mode-buttons button {
+  flex: 1;
+
+  padding: 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: transparent;
+  color: #A7A2A9;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.mode-buttons button:hover {
+  color: #F4F7F5;
+}
+
+.mode-buttons .active {
+  background-color: #F4F7F5;
+  color: #222823;
+}
+
+
+/* =========================
+   GOOGLE
+========================= */
+
+.google-button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 12px;
+
+  background-color: #222823;
+  color: #F4F7F5;
+
+  border: 1px solid #A7A2A9;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.google-button:hover {
+  background-color: #2d352f;
+}
+
+
+/* =========================
+   DIVISOR
+========================= */
+
+.divider {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 20px 0;
+}
+
+.divider span {
+  flex: 1;
+
+  height: 1px;
+
+  background-color: #A7A2A9;
+}
+
+.divider p {
+  color: #A7A2A9;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   CAMPOS
+========================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  color: #F4F7F5;
+
+  font-size: 13px;
+
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #575A5E;
+  border-radius: 10px;
+
+  background-color: #222823;
+  color: #F4F7F5;
+
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.form-group input::placeholder {
+  color: #A7A2A9;
+}
+
+.form-group input:focus {
+  border-color: #A7A2A9;
+}
+
+
+/* =========================
+   SENHA
+========================= */
+
+.password-field {
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #575A5E;
+  border-radius: 10px;
+
+  background-color: #222823;
+
+  transition: 0.2s;
+}
+
+.password-field:focus-within {
+  border-color: #A7A2A9;
+}
+
+.password-field input {
+  flex: 1;
+
+  padding: 12px;
+
+  border: none;
+
+  background-color: transparent;
+  color: #F4F7F5;
+
+  outline: none;
+}
+
+.password-field input::placeholder {
+  color: #A7A2A9;
+}
+
+.password-field button {
+  padding: 10px;
+
+  border: none;
+
+  background-color: transparent;
+  color: #A7A2A9;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   ERROS
+========================= */
+
+.error-message {
+  color: #ff8a80;
+
+  font-size: 12px;
+
+  margin-top: 5px;
+}
+
+
+/* =========================
+   ESQUECEU A SENHA
+========================= */
+
+.forgot-password {
+  display: block;
+
+  margin-left: auto;
+  margin-bottom: 15px;
+
+  border: none;
+
+  background-color: transparent;
+  color: #A7A2A9;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.forgot-password:hover {
+  color: #F4F7F5;
+  text-decoration: underline;
+}
+
+
+/* =========================
+   BOTÃO PRINCIPAL
+========================= */
+
+.submit-button {
+  width: 100%;
+
+  padding: 13px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #F4F7F5;
+  color: #222823;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.submit-button:hover {
+  opacity: 0.9;
+}
+
+.submit-button:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================
+   CADASTRE-SE
+========================= */
+
+.change-mode {
+  text-align: center;
+
+  color: #A7A2A9;
+
+  font-size: 14px;
+
+  margin-top: 20px;
+}
+
+.change-mode button {
+  margin-left: 5px;
+
+  border: none;
+
+  background-color: transparent;
+  color: #F4F7F5;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.change-mode button:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 800px) {
+
+  .login-image {
+    display: none;
+  }
+
+  .login-form-area {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 20px;
+  }
+
+  .login-content {
+    max-width: 420px;
+
+    padding: 28px 24px;
+  }
+
+  .login-content h1 {
+    font-size: 26px;
+  }
+}
