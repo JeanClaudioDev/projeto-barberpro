@@ -1,0 +1,370 @@
+/* =========================
+   PÁGINA
+========================= */
+
+.home-page {
+  min-height: 100vh;
+
+  padding: 32px;
+
+  background-color: #575A5E;
+  color: #F4F7F5;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.home-header {
+  max-width: 1200px;
+
+  margin: 0 auto 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.home-logo {
+  color: #A7A2A9;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  margin-bottom: 5px;
+}
+
+.home-header h1 {
+  color: #F4F7F5;
+
+  font-size: 30px;
+
+  margin-bottom: 5px;
+}
+
+.home-subtitle {
+  color: #A7A2A9;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.home-layout {
+  max-width: 1200px;
+
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1fr 340px;
+
+  gap: 24px;
+}
+
+.home-main {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.home-sidebar {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero-card {
+  min-height: 230px;
+
+  padding: 32px;
+
+  display: flex;
+  align-items: flex-end;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #222823,
+      #303732
+    );
+}
+
+.hero-content {
+  max-width: 520px;
+}
+
+.hero-small-text {
+  color: #A7A2A9;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  text-transform: uppercase;
+
+  margin-bottom: 10px;
+}
+
+.hero-content h2 {
+  color: #F4F7F5;
+
+  font-size: 30px;
+
+  margin-bottom: 8px;
+}
+
+.hero-content > p {
+  color: #A7A2A9;
+
+  font-size: 14px;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   SEÇÕES
+========================= */
+
+.home-section {
+  width: 100%;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+}
+
+.section-header h2 {
+  color: #F4F7F5;
+
+  font-size: 18px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.empty-card,
+.side-card {
+  background-color: #222823;
+
+  border-radius: 16px;
+
+  padding: 20px;
+}
+
+.empty-card {
+  min-height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #A7A2A9;
+}
+
+.side-card h3 {
+  color: #F4F7F5;
+
+  margin-bottom: 12px;
+
+  font-size: 16px;
+}
+
+.secondary-text {
+  color: #A7A2A9;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.info-item {
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #575A5E;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-title {
+  color: #F4F7F5;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  margin-bottom: 3px;
+}
+
+.info-text {
+  color: #A7A2A9;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.primary-button {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #222823;
+  color: #F4F7F5;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.primary-button:hover {
+  opacity: 0.9;
+}
+
+
+.light-button {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #F4F7F5;
+  color: #222823;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.light-button:hover {
+  opacity: 0.9;
+}
+
+
+.secondary-button {
+  width: 100%;
+
+  margin-top: 16px;
+
+  padding: 10px;
+
+  border: 1px solid #A7A2A9;
+  border-radius: 10px;
+
+  background-color: transparent;
+  color: #F4F7F5;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.secondary-button:hover {
+  background-color: #575A5E;
+}
+
+
+.text-button {
+  border: none;
+
+  background: transparent;
+  color: #A7A2A9;
+
+  cursor: pointer;
+}
+
+.text-button:hover {
+  color: #F4F7F5;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .home-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .home-page {
+    padding: 20px;
+  }
+
+  .home-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+
+  .hero-card {
+    padding: 24px;
+
+    min-height: 210px;
+  }
+
+  .hero-content h2 {
+    font-size: 25px;
+  }
+
+  .home-sidebar {
+    display: flex;
+  }
+
+}

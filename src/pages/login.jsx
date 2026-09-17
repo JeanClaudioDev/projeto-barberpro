@@ -82,7 +82,7 @@ export default function Login() {
       return;
     }
 
-    navigate("/");
+    navigate("/home");
     // Depois entra Firebase aqui.
     // Depois do login real também podemos navegar para Home.
   }
