@@ -1,5 +1,11 @@
-import Login from "./pages/home.jsx";
-
+import { Routes, Route} from "react-router-dom";
+import Login from "./pages/login.jsx";
+import Home from "./pages/home.jsx";
 export default function App() {
-  return <Login />;
+  return (
+    <Routes>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/" element={<Home/>}/>
+    </Routes>
+  )
 }

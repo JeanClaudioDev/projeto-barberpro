@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 function GoogleIcon() {
@@ -25,6 +26,7 @@ function GoogleIcon() {
 }
 
 export default function Login() {
+  const navigate = useNavigate();
   // Controla se estamos no Login ou Cadastro
   const [mode, setMode] = useState("login");
 
@@ -80,8 +82,7 @@ export default function Login() {
       return;
     }
 
-    console.log("Formulário válido!");
-
+    navigate("/");
     // Depois entra Firebase aqui.
     // Depois do login real também podemos navegar para Home.
   }

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 const quickServices = [
   { name: 'Corte Clássico', icon: '✂️', time: '45 min', price: 'R$ 45' },
