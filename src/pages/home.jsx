@@ -36,7 +36,7 @@ export default function Home() {
 
         <button
           className="primary-button"
-          onClick={() => navigate("/scheduling")}
+          onClick={() => navigate("/services")}
         >
           Novo agendamento
         </button>
@@ -176,6 +176,13 @@ export default function Home() {
         </aside>
 
       </div>
+      <footer className="home-footer">
+        <p>BarberPro</p>
+
+        <span>
+          Agendamentos simples e rápidos.
+        </span>
+      </footer>
 
     </main>
   );

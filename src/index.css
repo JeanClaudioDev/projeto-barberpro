@@ -1,7 +1,45 @@
+:root {
+  --background: #4A3527;
+
+  --page-background: linear-gradient(
+    145deg,
+    #E7B985 0%,
+    #92817A 42%,
+    #362417 100%
+  );
+
+  --header-footer: #24180F;
+
+  --surface: #2F241D;
+
+  --muted: #D0B8A7;
+
+  --text: #FFF7ED;
+
+  --border: rgba(245, 242, 243, 0.12);
+  --border-strong: rgba(245, 242, 243, 0.25);
+
+  --shadow-small:
+    0 4px 14px rgba(0, 0, 0, 0.12);
+
+  --shadow-card:
+    0 12px 30px rgba(0, 0, 0, 0.18);
+
+  --radius-small: 10px;
+  --radius-medium: 16px;
+  --radius-large: 20px;
+
+  --transition: 0.2s ease;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -12,13 +50,85 @@ body,
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  min-width: 320px;
+  min-height: 100vh;
 
-  background-color: #575A5E;
-  color: #F4F7F5;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: var(--page-background);
+  color: var(--text);
+
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+::selection {
+  background-color: var(--text);
+  color: var(--surface);
+}
+
+
+/* =========================
+   BOTÃO VOLTAR GLOBAL
+========================= */
+
+.back-button,
+.profile-back-button {
+  padding: 10px 16px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+
+  background-color: var(--surface);
+  color: var(--text);
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.back-button:hover,
+.profile-back-button:hover {
+  border-color: var(--border-strong);
+
+  transform: translateY(-1px);
+
+  box-shadow: var(--shadow-small);
+}
+
+.back-button:active,
+.profile-back-button:active {
+  transform: translateY(0);
 }

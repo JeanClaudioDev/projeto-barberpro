@@ -1,14 +1,10 @@
-/* =========================
-   PÁGINA
-========================= */
-
 .confirmation-page {
   min-height: 100vh;
 
-  padding: 32px;
+  padding: 36px 28px 48px;
 
-  background-color: #575A5E;
-  color: #F4F7F5;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 
@@ -17,6 +13,7 @@
 ========================= */
 
 .confirmation-header {
+  width: 100%;
   max-width: 800px;
 
   margin: 0 auto 30px;
@@ -28,43 +25,46 @@
 }
 
 .confirmation-header h1 {
-  font-size: 30px;
-
   margin-bottom: 5px;
+
+  font-size: clamp(26px, 4vw, 32px);
 }
 
 .confirmation-header p {
-  color: #A7A2A9;
+  color: var(--muted);
 
   font-size: 14px;
 }
 
 
 /* =========================
-   CARD
+   RESUMO
 ========================= */
 
 .confirmation-card {
+  width: 100%;
   max-width: 800px;
 
   margin: auto;
-
-  padding: 24px;
+  padding: 26px;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  gap: 20px;
+  gap: 22px;
 
-  background-color: #222823;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
 
-  border-radius: 16px;
+  background-color: var(--surface);
+
+  box-shadow: var(--shadow-card);
 }
 
 .confirmation-item {
-  padding-bottom: 15px;
+  padding-bottom: 16px;
 
-  border-bottom: 1px solid #575A5E;
+  border-bottom: 1px solid var(--border);
 }
 
 .confirmation-item span {
@@ -72,13 +72,18 @@
 
   margin-bottom: 5px;
 
-  color: #A7A2A9;
+  color: var(--muted);
 
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
 }
 
 .confirmation-item strong {
-  color: #F4F7F5;
+  color: var(--text);
 
   font-size: 17px;
 }
@@ -86,34 +91,38 @@
 .confirmation-item p {
   margin-top: 4px;
 
-  color: #A7A2A9;
+  color: var(--muted);
 
   font-size: 13px;
 }
 
 
 /* =========================
-   PREÇO
+   VALOR
 ========================= */
 
 .confirmation-price {
   grid-column: 1 / -1;
 
+  padding-top: 4px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding-top: 10px;
+  gap: 20px;
 }
 
 .confirmation-price span {
-  color: #A7A2A9;
+  color: var(--muted);
+
+  font-size: 14px;
 }
 
 .confirmation-price strong {
-  color: #F4F7F5;
+  color: var(--text);
 
-  font-size: 22px;
+  font-size: 24px;
 }
 
 
@@ -122,9 +131,10 @@
 ========================= */
 
 .confirmation-actions {
+  width: 100%;
   max-width: 800px;
 
-  margin: 25px auto 0;
+  margin: 24px auto 0;
 
   display: flex;
   justify-content: flex-end;
@@ -136,22 +146,43 @@
 .confirm-button {
   padding: 12px 20px;
 
-  border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-small);
 
-  font-weight: bold;
+  font-weight: 700;
 
-  cursor: pointer;
+  transition:
+    transform var(--transition),
+    opacity var(--transition),
+    border-color var(--transition);
 }
 
 .edit-button {
-  background-color: #222823;
-  color: #F4F7F5;
+  border: 1px solid var(--border-strong);
+
+  background-color: var(--surface);
+  color: var(--text);
 }
 
 .confirm-button {
-  background-color: #F4F7F5;
-  color: #222823;
+  border: none;
+
+  background-color: var(--text);
+  color: var(--surface);
+
+  box-shadow: var(--shadow-small);
+}
+
+.edit-button:hover,
+.confirm-button:hover {
+  transform: translateY(-1px);
+}
+
+.edit-button:hover {
+  border-color: var(--text);
+}
+
+.confirm-button:hover {
+  opacity: 0.92;
 }
 
 
@@ -160,22 +191,25 @@
 ========================= */
 
 .confirmation-success {
-  max-width: 500px;
+  width: calc(100% - 32px);
+  max-width: 520px;
 
-  margin: 100px auto;
-
-  padding: 35px;
+  margin: 90px auto;
+  padding: 38px;
 
   text-align: center;
 
-  background-color: #222823;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
 
-  border-radius: 16px;
+  background-color: var(--surface);
+
+  box-shadow: var(--shadow-card);
 }
 
 .success-icon {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
 
   margin: 0 auto 20px;
 
@@ -185,26 +219,29 @@
 
   border-radius: 50%;
 
-  background-color: #F4F7F5;
-  color: #222823;
+  background-color: var(--text);
+  color: var(--surface);
 
   font-size: 30px;
-  font-weight: bold;
+  font-weight: 700;
+
+  box-shadow: var(--shadow-small);
 }
 
 .confirmation-success h1 {
   margin-bottom: 10px;
+
+  font-size: 26px;
 }
 
 .confirmation-success > p {
-  color: #A7A2A9;
+  margin-bottom: 26px;
 
-  margin-bottom: 25px;
+  color: var(--muted);
 }
 
 .success-summary {
-  margin-bottom: 25px;
-
+  margin-bottom: 24px;
   padding: 20px;
 
   display: flex;
@@ -212,13 +249,18 @@
 
   gap: 6px;
 
-  background-color: #575A5E;
-
+  border: 1px solid var(--border);
   border-radius: 12px;
+
+  background-color: var(--background);
+}
+
+.success-summary strong {
+  color: var(--text);
 }
 
 .success-summary span {
-  color: #A7A2A9;
+  color: var(--muted);
 
   font-size: 13px;
 }
@@ -229,14 +271,22 @@
   padding: 12px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-small);
 
-  background-color: #F4F7F5;
-  color: #222823;
+  background-color: var(--text);
+  color: var(--surface);
 
-  font-weight: bold;
+  font-weight: 700;
 
-  cursor: pointer;
+  transition:
+    transform var(--transition),
+    opacity var(--transition);
+}
+
+.home-button:hover {
+  opacity: 0.92;
+
+  transform: translateY(-1px);
 }
 
 
@@ -245,17 +295,20 @@
 ========================= */
 
 .confirmation-warning {
+  width: calc(100% - 32px);
   max-width: 500px;
 
   margin: 100px auto;
-
-  padding: 30px;
+  padding: 34px;
 
   text-align: center;
 
-  background-color: #222823;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
 
-  border-radius: 16px;
+  background-color: var(--surface);
+
+  box-shadow: var(--shadow-card);
 }
 
 .confirmation-warning h1 {
@@ -263,24 +316,21 @@
 }
 
 .confirmation-warning p {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 
-  color: #A7A2A9;
+  color: var(--muted);
 }
 
-.confirmation-warning button,
-.back-button {
-  padding: 10px 16px;
+.confirmation-warning button {
+  padding: 11px 18px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-small);
 
-  background-color: #F4F7F5;
-  color: #222823;
+  background-color: var(--text);
+  color: var(--surface);
 
-  cursor: pointer;
-
-  font-weight: bold;
+  font-weight: 700;
 }
 
 
@@ -289,9 +339,8 @@
 ========================= */
 
 @media (max-width: 600px) {
-
   .confirmation-page {
-    padding: 20px;
+    padding: 24px 16px 36px;
   }
 
   .confirmation-header {
@@ -299,8 +348,14 @@
     flex-direction: column;
   }
 
+  .confirmation-header .back-button {
+    width: 100%;
+  }
+
   .confirmation-card {
     grid-template-columns: 1fr;
+
+    padding: 22px;
   }
 
   .confirmation-price {
@@ -316,4 +371,9 @@
     width: 100%;
   }
 
+  .confirmation-success {
+    margin-top: 50px;
+
+    padding: 30px 22px;
+  }
 }

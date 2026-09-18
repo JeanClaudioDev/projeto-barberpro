@@ -1,31 +1,34 @@
-/* =========================
-   PÁGINA
-========================= */
-
 .login-page {
   min-height: 100vh;
+
   display: flex;
-  background-color: #575A5E;
+
+  background-color: var(--background);
 }
 
 
 /* =========================
-   LADO ESQUERDO - IMAGEM
+   IMAGEM
 ========================= */
 
 .login-image {
   flex: 1;
+
   position: relative;
 
-  background-image: url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1");
-  background-size: cover;
-  background-position: center;
+  min-height: 100vh;
 
   padding: 48px;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  background-image:
+    url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1");
+
+  background-size: cover;
+  background-position: center;
 
   overflow: hidden;
 }
@@ -34,102 +37,91 @@
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(
-    160deg,
-    rgba(34, 40, 35, 0.90),
-    rgba(87, 90, 94, 0.65)
-  );
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34, 40, 35, 0.92),
+      rgba(87, 90, 94, 0.62)
+    );
 }
 
-.login-brand,
-.login-message {
+.login-brand {
   position: relative;
   z-index: 1;
 }
 
 .login-brand h2 {
-  color: #F4F7F5;
-  font-size: 22px;
-}
+  color: var(--text);
 
-.login-message h1 {
-  color: #F4F7F5;
+  font-size: 24px;
+  font-weight: 700;
 
-  font-size: 40px;
-  line-height: 1.15;
-
-  margin-bottom: 15px;
-}
-
-.login-message p {
-  color: #A7A2A9;
-
-  max-width: 360px;
-
-  font-size: 14px;
-  line-height: 1.6;
+  letter-spacing: -0.5px;
 }
 
 
 /* =========================
-   ÁREA DO FORMULÁRIO
+   FORMULÁRIO
 ========================= */
 
 .login-form-area {
-  width: 480px;
+  width: 500px;
   min-height: 100vh;
+
+  padding: 40px;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 40px;
-
-  background-color: #575A5E;
 }
 
 .login-content {
   width: 100%;
-  max-width: 380px;
+  max-width: 390px;
 
-  background-color: #222823;
+  padding: 36px;
 
-  padding: 35px;
+  background-color: var(--surface);
 
-  border-radius: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+
+  box-shadow: var(--shadow-card);
 }
 
 .login-content h1 {
-  color: #F4F7F5;
+  margin-bottom: 6px;
 
-  font-size: 30px;
+  color: var(--text);
 
-  margin-bottom: 5px;
+  font-size: clamp(26px, 4vw, 32px);
+  line-height: 1.2;
 }
 
 .login-description {
-  color: #A7A2A9;
+  margin-bottom: 28px;
+
+  color: var(--muted);
 
   font-size: 14px;
-
-  margin-bottom: 30px;
 }
 
 
 /* =========================
-   ENTRAR / CADASTRAR
+   LOGIN / CADASTRO
 ========================= */
 
 .mode-buttons {
-  display: flex;
-  gap: 5px;
-
   padding: 5px;
   margin-bottom: 20px;
 
-  border-radius: 10px;
+  display: flex;
 
-  background-color: #575A5E;
+  gap: 5px;
+
+  background-color: var(--background);
+
+  border-radius: 12px;
 }
 
 .mode-buttons button {
@@ -141,20 +133,29 @@
   border-radius: 8px;
 
   background-color: transparent;
-  color: #A7A2A9;
+  color: var(--muted);
 
-  cursor: pointer;
+  font-weight: 600;
 
-  transition: 0.2s;
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
 }
 
 .mode-buttons button:hover {
-  color: #F4F7F5;
+  color: var(--text);
+}
+
+.mode-buttons button:active {
+  transform: scale(0.98);
 }
 
 .mode-buttons .active {
-  background-color: #F4F7F5;
-  color: #222823;
+  background-color: var(--text);
+  color: var(--surface);
+
+  box-shadow: var(--shadow-small);
 }
 
 
@@ -165,27 +166,36 @@
 .google-button {
   width: 100%;
 
+  padding: 12px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   gap: 10px;
 
-  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
 
-  background-color: #222823;
-  color: #F4F7F5;
+  background-color: transparent;
+  color: var(--text);
 
-  border: 1px solid #A7A2A9;
-  border-radius: 10px;
+  font-weight: 600;
 
-  cursor: pointer;
-
-  transition: 0.2s;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    transform var(--transition);
 }
 
 .google-button:hover {
-  background-color: #2d352f;
+  border-color: var(--text);
+
+  background-color: rgba(244, 247, 245, 0.04);
+}
+
+.google-button:active {
+  transform: scale(0.99);
 }
 
 
@@ -194,12 +204,12 @@
 ========================= */
 
 .divider {
+  margin: 22px 0;
+
   display: flex;
   align-items: center;
 
-  gap: 10px;
-
-  margin: 20px 0;
+  gap: 12px;
 }
 
 .divider span {
@@ -207,11 +217,11 @@
 
   height: 1px;
 
-  background-color: #A7A2A9;
+  background-color: var(--border-strong);
 }
 
 .divider p {
-  color: #A7A2A9;
+  color: var(--muted);
 
   font-size: 12px;
 }
@@ -222,42 +232,48 @@
 ========================= */
 
 .form-group {
+  margin-bottom: 16px;
+
   display: flex;
   flex-direction: column;
-
-  margin-bottom: 15px;
 }
 
 .form-group label {
-  color: #F4F7F5;
+  margin-bottom: 6px;
+
+  color: var(--text);
 
   font-size: 13px;
-
-  margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .form-group input {
   width: 100%;
 
-  padding: 12px;
+  padding: 12px 13px;
 
-  border: 1px solid #575A5E;
-  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
 
-  background-color: #222823;
-  color: #F4F7F5;
+  background-color: var(--surface);
+  color: var(--text);
 
   outline: none;
 
-  transition: 0.2s;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
 .form-group input::placeholder {
-  color: #A7A2A9;
+  color: var(--muted);
 }
 
 .form-group input:focus {
-  border-color: #A7A2A9;
+  border-color: var(--text);
+
+  box-shadow:
+    0 0 0 3px rgba(244, 247, 245, 0.08);
 }
 
 
@@ -269,59 +285,64 @@
   display: flex;
   align-items: center;
 
-  border: 1px solid #575A5E;
-  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
 
-  background-color: #222823;
-
-  transition: 0.2s;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
 .password-field:focus-within {
-  border-color: #A7A2A9;
+  border-color: var(--text);
+
+  box-shadow:
+    0 0 0 3px rgba(244, 247, 245, 0.08);
 }
 
 .password-field input {
   flex: 1;
 
-  padding: 12px;
+  min-width: 0;
 
   border: none;
 
-  background-color: transparent;
-  color: #F4F7F5;
-
-  outline: none;
+  box-shadow: none;
 }
 
-.password-field input::placeholder {
-  color: #A7A2A9;
+.password-field input:focus {
+  box-shadow: none;
 }
 
 .password-field button {
-  padding: 10px;
+  padding: 10px 12px;
 
   border: none;
 
   background-color: transparent;
-  color: #A7A2A9;
+  color: var(--muted);
 
   font-size: 12px;
+  font-weight: 600;
 
-  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.password-field button:hover {
+  color: var(--text);
 }
 
 
 /* =========================
-   ERROS
+   ERRO
 ========================= */
 
 .error-message {
+  margin-top: 5px;
+
   color: #ff8a80;
 
   font-size: 12px;
-
-  margin-top: 5px;
 }
 
 
@@ -333,20 +354,19 @@
   display: block;
 
   margin-left: auto;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 
   border: none;
 
-  background-color: transparent;
-  color: #A7A2A9;
+  background: transparent;
+  color: var(--muted);
 
   font-size: 12px;
-
-  cursor: pointer;
 }
 
 .forgot-password:hover {
-  color: #F4F7F5;
+  color: var(--text);
+
   text-decoration: underline;
 }
 
@@ -361,39 +381,43 @@
   padding: 13px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-small);
 
-  background-color: #F4F7F5;
-  color: #222823;
+  background-color: var(--text);
+  color: var(--surface);
 
-  font-weight: bold;
+  font-weight: 700;
 
-  cursor: pointer;
+  box-shadow: var(--shadow-small);
 
-  transition: 0.2s;
+  transition:
+    transform var(--transition),
+    opacity var(--transition);
 }
 
 .submit-button:hover {
-  opacity: 0.9;
+  opacity: 0.92;
+
+  transform: translateY(-1px);
 }
 
 .submit-button:active {
-  transform: scale(0.98);
+  transform: translateY(0);
 }
 
 
 /* =========================
-   CADASTRE-SE
+   ALTERAR MODO
 ========================= */
 
 .change-mode {
+  margin-top: 22px;
+
   text-align: center;
 
-  color: #A7A2A9;
+  color: var(--muted);
 
   font-size: 14px;
-
-  margin-top: 20px;
 }
 
 .change-mode button {
@@ -401,12 +425,10 @@
 
   border: none;
 
-  background-color: transparent;
-  color: #F4F7F5;
+  background: transparent;
+  color: var(--text);
 
-  font-weight: bold;
-
-  cursor: pointer;
+  font-weight: 700;
 }
 
 .change-mode button:hover {
@@ -419,25 +441,31 @@
 ========================= */
 
 @media (max-width: 800px) {
-
   .login-image {
     display: none;
   }
 
   .login-form-area {
     width: 100%;
-    min-height: 100vh;
 
-    padding: 20px;
+    padding: 24px;
   }
 
   .login-content {
-    max-width: 420px;
+    max-width: 430px;
 
-    padding: 28px 24px;
+    padding: 30px 26px;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-form-area {
+    padding: 16px;
   }
 
-  .login-content h1 {
-    font-size: 26px;
+  .login-content {
+    padding: 26px 20px;
+
+    border-radius: 16px;
   }
 }
