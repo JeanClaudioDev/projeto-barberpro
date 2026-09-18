@@ -1,0 +1,260 @@
+/* =========================
+   PÁGINA
+========================= */
+
+.professionals-page {
+  min-height: 100vh;
+
+  padding: 32px;
+
+  background-color: #575A5E;
+  color: #F4F7F5;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.professionals-header {
+  max-width: 1100px;
+
+  margin: 0 auto 30px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.professionals-header h1 {
+  font-size: 30px;
+
+  margin-bottom: 5px;
+}
+
+.professionals-header p {
+  color: #A7A2A9;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   SERVIÇO SELECIONADO
+========================= */
+
+.selected-service {
+  max-width: 1100px;
+
+  margin: 0 auto 25px;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+}
+
+.selected-service-label {
+  color: #A7A2A9;
+
+  font-size: 12px;
+
+  margin-bottom: 5px;
+}
+
+.selected-service h2 {
+  color: #F4F7F5;
+
+  font-size: 20px;
+}
+
+.selected-service-details {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.selected-service-details span {
+  color: #A7A2A9;
+
+  font-size: 13px;
+}
+
+.selected-service-details strong {
+  color: #F4F7F5;
+}
+
+
+/* =========================
+   PROFISSIONAIS
+========================= */
+
+.professionals-list {
+  max-width: 1100px;
+
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.professional-card {
+  min-height: 160px;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+}
+
+.professional-info h3 {
+  color: #F4F7F5;
+
+  margin-bottom: 6px;
+}
+
+.professional-info p {
+  color: #A7A2A9;
+
+  font-size: 13px;
+}
+
+.professional-select-button {
+  width: 100%;
+
+  margin-top: 20px;
+
+  padding: 10px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #F4F7F5;
+  color: #222823;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   LISTA VAZIA
+========================= */
+
+.professionals-empty {
+  grid-column: 1 / -1;
+
+  min-height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+
+  color: #A7A2A9;
+}
+
+
+/* =========================
+   AVISO
+========================= */
+
+.professional-warning {
+  max-width: 500px;
+
+  margin: 100px auto;
+
+  padding: 30px;
+
+  text-align: center;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+}
+
+.professional-warning h1 {
+  margin-bottom: 10px;
+}
+
+.professional-warning p {
+  color: #A7A2A9;
+
+  margin-bottom: 20px;
+}
+
+.professional-warning button,
+.back-button {
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #222823;
+  color: #F4F7F5;
+
+  cursor: pointer;
+}
+
+.professional-warning button {
+  background-color: #F4F7F5;
+  color: #222823;
+
+  font-weight: bold;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 900px) {
+
+  .professionals-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .professionals-page {
+    padding: 20px;
+  }
+
+  .professionals-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .selected-service {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .professionals-list {
+    grid-template-columns: 1fr;
+  }
+
+}
