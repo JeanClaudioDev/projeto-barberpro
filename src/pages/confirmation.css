@@ -1,0 +1,319 @@
+/* =========================
+   PÁGINA
+========================= */
+
+.confirmation-page {
+  min-height: 100vh;
+
+  padding: 32px;
+
+  background-color: #575A5E;
+  color: #F4F7F5;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.confirmation-header {
+  max-width: 800px;
+
+  margin: 0 auto 30px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.confirmation-header h1 {
+  font-size: 30px;
+
+  margin-bottom: 5px;
+}
+
+.confirmation-header p {
+  color: #A7A2A9;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.confirmation-card {
+  max-width: 800px;
+
+  margin: auto;
+
+  padding: 24px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 20px;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+}
+
+.confirmation-item {
+  padding-bottom: 15px;
+
+  border-bottom: 1px solid #575A5E;
+}
+
+.confirmation-item span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #A7A2A9;
+
+  font-size: 12px;
+}
+
+.confirmation-item strong {
+  color: #F4F7F5;
+
+  font-size: 17px;
+}
+
+.confirmation-item p {
+  margin-top: 4px;
+
+  color: #A7A2A9;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   PREÇO
+========================= */
+
+.confirmation-price {
+  grid-column: 1 / -1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-top: 10px;
+}
+
+.confirmation-price span {
+  color: #A7A2A9;
+}
+
+.confirmation-price strong {
+  color: #F4F7F5;
+
+  font-size: 22px;
+}
+
+
+/* =========================
+   AÇÕES
+========================= */
+
+.confirmation-actions {
+  max-width: 800px;
+
+  margin: 25px auto 0;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 12px;
+}
+
+.edit-button,
+.confirm-button {
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #222823;
+  color: #F4F7F5;
+}
+
+.confirm-button {
+  background-color: #F4F7F5;
+  color: #222823;
+}
+
+
+/* =========================
+   SUCESSO
+========================= */
+
+.confirmation-success {
+  max-width: 500px;
+
+  margin: 100px auto;
+
+  padding: 35px;
+
+  text-align: center;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: #F4F7F5;
+  color: #222823;
+
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.confirmation-success h1 {
+  margin-bottom: 10px;
+}
+
+.confirmation-success > p {
+  color: #A7A2A9;
+
+  margin-bottom: 25px;
+}
+
+.success-summary {
+  margin-bottom: 25px;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  background-color: #575A5E;
+
+  border-radius: 12px;
+}
+
+.success-summary span {
+  color: #A7A2A9;
+
+  font-size: 13px;
+}
+
+.home-button {
+  width: 100%;
+
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #F4F7F5;
+  color: #222823;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   AVISO
+========================= */
+
+.confirmation-warning {
+  max-width: 500px;
+
+  margin: 100px auto;
+
+  padding: 30px;
+
+  text-align: center;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+}
+
+.confirmation-warning h1 {
+  margin-bottom: 10px;
+}
+
+.confirmation-warning p {
+  margin-bottom: 20px;
+
+  color: #A7A2A9;
+}
+
+.confirmation-warning button,
+.back-button {
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #F4F7F5;
+  color: #222823;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 600px) {
+
+  .confirmation-page {
+    padding: 20px;
+  }
+
+  .confirmation-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .confirmation-card {
+    grid-template-columns: 1fr;
+  }
+
+  .confirmation-price {
+    grid-column: auto;
+  }
+
+  .confirmation-actions {
+    flex-direction: column;
+  }
+
+  .edit-button,
+  .confirm-button {
+    width: 100%;
+  }
+
+}

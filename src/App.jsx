@@ -5,7 +5,7 @@ import Home from "./pages/home.jsx";
 import Services from "./pages/services.jsx";
 import Professionals from "./pages/professionals.jsx";
 import Scheduling from "./pages/scheduling.jsx";
-// import Confirmation from "./pages/confirmation.jsx";
+import Confirmation from "./pages/confirmation.jsx";
 // import Profile from "./pages/profile.jsx";
 
 export default function App(){
@@ -23,9 +23,9 @@ export default function App(){
 
       <Route path="/scheduling" element={<Scheduling/>}/>
       
-      {/* <Route path="/confirmation" element={<Confirmation/>}/>
+      <Route path="/confirmation" element={<Confirmation/>}/>
 
-      <Route path="/profile" element={<Profile/>}/> */}
+      {/* <Route path="/profile" element={<Profile/>}/> */}
     </Routes>
   );
 }
