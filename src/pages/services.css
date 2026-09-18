@@ -1,161 +1,174 @@
+/* =========================
+   PÁGINA DE SERVIÇOS
+========================= */
+
 .services-page {
   min-height: 100vh;
   padding: 32px;
-
   background-color: #575A5E;
   color: #F4F7F5;
+  box-sizing: border-box;
 }
+
+
+/* =========================
+   CABEÇALHO
+========================= */
 
 .services-header {
   max-width: 1100px;
-
   margin: 0 auto 30px;
-
   display: flex;
   align-items: center;
-
   gap: 20px;
+  flex-wrap: wrap; /* Permite quebrar linha caso o espaço seja menor */
 }
 
 .services-header h1 {
-  font-size: 30px;
-
+  font-size: clamp(24px, 4vw, 30px); /* Tamanho fluido */
   margin-bottom: 5px;
+  word-break: break-word;
 }
 
 .services-header p {
   color: #A7A2A9;
-
   font-size: 14px;
 }
 
 .back-button {
   padding: 10px 16px;
-
   border: none;
   border-radius: 10px;
-
   background-color: #222823;
   color: #F4F7F5;
-
   cursor: pointer;
+  transition: 0.2s;
+  box-sizing: border-box;
 }
+
+.back-button:hover {
+  opacity: 0.9;
+}
+
+
+/* =========================
+   FILTROS
+========================= */
 
 .services-filters {
   max-width: 1100px;
-
   margin: 0 auto 25px;
-
   display: grid;
   grid-template-columns: 1fr 220px 180px;
-
   gap: 12px;
 }
 
 .services-filters input,
 .services-filters select {
   padding: 12px;
-
   border: 1px solid #A7A2A9;
   border-radius: 10px;
-
   background-color: #222823;
   color: #F4F7F5;
-
   outline: none;
-}
-
-.services-filters input {
-  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .services-filters input::placeholder {
   color: #A7A2A9;
 }
 
+
+/* =========================
+   LISTA DE SERVIÇOS
+========================= */
+
 .services-list {
   max-width: 1100px;
-
   margin: auto;
-
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-
   gap: 18px;
+  min-width: 0; /* Impede estouro de grid */
 }
 
 .service-card {
   min-height: 180px;
-
   padding: 20px;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   background-color: #222823;
-
   border-radius: 16px;
+  box-sizing: border-box;
 }
 
 .service-card-content h3 {
   margin-bottom: 10px;
-
   color: #F4F7F5;
+  font-size: 18px;
+  word-break: break-word;
 }
 
 .service-duration {
   color: #A7A2A9;
-
   font-size: 13px;
-
   margin-bottom: 10px;
 }
 
 .service-price {
   color: #F4F7F5;
-
   font-size: 18px;
   font-weight: bold;
 }
 
 .service-schedule-button {
   width: 100%;
-
   margin-top: 20px;
-
   padding: 10px;
-
   border: none;
   border-radius: 10px;
-
   background-color: #F4F7F5;
   color: #222823;
-
   font-weight: bold;
-
   cursor: pointer;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.service-schedule-button:hover {
+  opacity: 0.9;
 }
 
 .services-empty {
   grid-column: 1 / -1;
-
   min-height: 180px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background-color: #222823;
-
   border-radius: 16px;
-
   color: #A7A2A9;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
 
 @media (max-width: 900px) {
   .services-list {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .services-filters {
+    grid-template-columns: 1fr; /* Filtros empilhados em telas médias/pequenas */
   }
 }
 
@@ -167,13 +180,15 @@
   .services-header {
     align-items: flex-start;
     flex-direction: column;
+    gap: 12px;
   }
+
+  .back-button {
+    width: 100%;
+    text-align: center;
+  }
+
   .services-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Uma coluna de cards em celulares */
   }
-}
-@media (max-width: 700px){
-    .services-filters {
-        grid-template-columns: 1fr;
-    }
 }
