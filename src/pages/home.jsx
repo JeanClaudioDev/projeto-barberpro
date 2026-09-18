@@ -19,6 +19,12 @@ export default function Home() {
       {/* CABEÇALHO */}
       <header className="home-header">
         <div>
+        <button
+          className="primary-button"
+          onClick={() => navigate("/profile")}
+        >
+          Meu perfil
+        </button>
           <p className="home-logo">BarberPro</p>
 
           <h1>Olá 👋</h1>
