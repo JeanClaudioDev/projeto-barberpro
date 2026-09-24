@@ -14,7 +14,8 @@ export default function Profile() {
   };
 
   // Depois os agendamentos virão do banco.
-  const appointments = [];
+  const appointments = 
+  JSON.parse(localStorage.getItem("appointments")) || [];
 
   function handleLogout() {
     // Depois vamos usar:

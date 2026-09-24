@@ -45,17 +45,27 @@ export default function Confirmation() {
     }
 
   function handleConfirm() {
-    console.log("Agendamento confirmado:", {
+    const newAppointment = {
+      id: Date.now(),
       service: selectedService,
       professional: selectedProfessional,
       date: selectedDate,
       time: selectedTime,
-    });
-
+      status: "marcado",
+    };
+    const savedAppointments = 
+    JSON.parse(localStorage.getItem("appointments")) || [];
+    const updateAppointments = [
+      ...savedAppointments,
+      newAppointment,
+    ];
+    localStorage.setItem(
+      "appointments",
+      JSON.stringify(updateAppointments)
+    );
+    console.log("Agendamento salvo", newAppointment)
     setConfirmed(true);
-
-    // Depois o Firebase vai salvar o agendamento aqui.
-  }
+  };
 
   function handleEdit() {
     navigate("/scheduling", {

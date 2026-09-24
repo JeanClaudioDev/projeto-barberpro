@@ -429,7 +429,71 @@
 .text-button:hover {
   color: var(--text);
 }
+.next-appointment {
+  display: flex;
+  flex-direction: column;
 
+  gap: 6px;
+}
+
+.next-appointment strong {
+  color: var(--text);
+
+  font-size: 15px;
+}
+
+.next-appointment p,
+.next-appointment span {
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+
+.home-appointment-card {
+  min-height: 100px;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+
+  background-color: var(--surface);
+
+  box-shadow: var(--shadow-small);
+}
+
+.home-appointment-card > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.home-appointment-card strong {
+  color: var(--text);
+}
+
+.home-appointment-card p,
+.home-appointment-card span {
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+
+@media (max-width: 600px) {
+  .home-appointment-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
 
 /* =========================
    RESPONSIVIDADE

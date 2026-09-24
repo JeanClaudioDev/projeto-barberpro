@@ -12,6 +12,37 @@ function InfoItem({ title, text }) {
 
 export default function Home() {
   const navigate = useNavigate();
+  const appointments =
+  JSON.parse(localStorage.getItem("appointments")) || [];
+
+  const now = new Date();
+
+  const upcomingAppointments = appointments
+    .filter((appointment) => {
+      if (appointment.status !== "marcado") {
+        return false;
+      }
+
+      const appointmentDate = new Date(
+        `${appointment.date}T${appointment.time}`
+      );
+
+      return appointmentDate >= now;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(`${a.date}T${a.time}`);
+      const dateB = new Date(`${b.date}T${b.time}`);
+
+      return dateA - dateB;
+    });
+
+  const nextAppointment = upcomingAppointments[0];
+
+  function formatDate(date){
+    const[year, month, day] = date.split("-");
+    return `${day}/${month}/${year}`;
+  }
+
 
   return (
     <main className="home-page">
@@ -101,11 +132,40 @@ export default function Home() {
               <h2>Meus agendamentos</h2>
             </div>
 
+          {upcomingAppointments.length === 0 ? (
             <div className="empty-card">
               <p>
                 Você ainda não possui agendamentos.
               </p>
             </div>
+          ) : (
+            <div className="home-appointment-card">
+
+              <div>
+                <strong>
+                  {nextAppointment.service.name}
+                </strong>
+
+                <p>
+                  {nextAppointment.professional.name}
+                </p>
+
+                <span>
+                  {formatDate(nextAppointment.date)}
+                  {" às "}
+                  {nextAppointment.time}
+                </span>
+              </div>
+
+              <button
+                className="text-button"
+                onClick={() => navigate("/profile")}
+              >
+                Ver agendamentos
+              </button>
+
+            </div>
+          )}
           </section>
 
         </section>
@@ -114,16 +174,34 @@ export default function Home() {
         {/* COLUNA LATERAL */}
         <aside className="home-sidebar">
 
-          {/* PRÓXIMO AGENDAMENTO */}
           <section className="side-card">
-            <h3>Próximo agendamento</h3>
+          <h3>Próximo agendamento</h3>
 
+          {nextAppointment ? (
+            <div className="next-appointment">
+
+              <strong>
+                {nextAppointment.service.name}
+              </strong>
+
+              <p>
+                Profissional:{" "}
+                {nextAppointment.professional.name}
+              </p>
+
+              <span>
+                {formatDate(nextAppointment.date)}
+                {" às "}
+                {nextAppointment.time}
+              </span>
+
+            </div>
+          ) : (
             <p className="secondary-text">
-              Quando houver um agendamento,
-              as informações aparecerão aqui.
+              Você ainda não possui agendamentos.
             </p>
-          </section>
-
+          )}
+        </section>
 
           {/* INFORMAÇÕES */}
           <section className="side-card">
