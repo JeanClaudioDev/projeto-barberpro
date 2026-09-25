@@ -25,6 +25,16 @@ function generateTimes(duration) {
 
   return times;
 }
+  function generateDates() {
+    const dates = [];
+    const today = new Date();
+    for(let i = 0; i < 7; i++){
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      dates.push(date)
+    }
+    return dates;
+  }
 
 export default function Scheduling() {
   const navigate = useNavigate();
@@ -35,6 +45,8 @@ export default function Scheduling() {
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+
+  const availableDates = generateDates();
 
   if (!selectedService || !selectedProfessional) {
     return (
@@ -130,15 +142,14 @@ export default function Scheduling() {
 
         <div className="date-section">
           <h2>Escolha a data</h2>
-
-          <input
-            type="date"
-            value={date}
-            onChange={(event) => {
-              setDate(event.target.value);
-              setTime("");
-            }}
-          />
+          <div className="date-grid">
+            {availableDates.map((dateItem) =>
+            <button key={dateItem.toISOString()}
+            type="button">
+              ...
+            </button>
+            )}
+          </div>
         </div>
 
 

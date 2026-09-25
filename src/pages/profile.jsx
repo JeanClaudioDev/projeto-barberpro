@@ -25,7 +25,29 @@ export default function Profile() {
       replace: true,
     });
   }
+  function formatDate(date) {
+    const [year, month, day] = date.split("-");
+      return `${day}/${month}/${year}`;
+  }
+  function handleCancelAppointments(id) {
+    const appointments =
+    JSON.parse(localStorage.getItem("appointments")) || [];
 
+    const updateAppointments = appointments.map((appointments) => {
+      if (appointment.id === id) {
+        return {
+          ...appointment,
+          status:"cancelado",
+        };
+      }
+      return appointment;
+    });
+    localStorage.setItem(
+      "appointments",
+      JSON.stringify(updateAppointments)
+    );
+    window.location.reload();
+  }
   return (
     <main className="profile-page">
 
@@ -133,16 +155,21 @@ export default function Profile() {
                     className="appointment-card"
                   >
                     <h3>
-                      {appointment.service}
+                      {appointment.service.name}
                     </h3>
 
                     <p>
-                      {appointment.professional}
+                      {appointment.professional.name}
                     </p>
 
                     <span>
-                      {appointment.date} às {appointment.time}
+                      {formatDate(appointment.date)}
+                      {" às "}
+                      {appointment.time}
                     </span>
+                    <button onClick={() =>handleCancelAppointments(appointment.id)}>
+                      Cancelar
+                    </button>
                   </article>
 
                 ))}
