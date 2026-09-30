@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../services/firebase.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from "firebase/auth";
+
+import { doc, setDoc } from "firebase/firestore";
+
+import { auth, db } from "../services/firebase";
 
 import "./login.css";
 
@@ -77,32 +83,54 @@ export default function Login() {
     return Object.keys(newErrors).length === 0;
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+ async function handleSubmit(event) {
+  event.preventDefault();
 
-    const formIsValid = validateForm();
+  const formIsValid = validateForm();
 
-    if (!formIsValid) {
-      return;
-    }
-
-    if (mode === "register") {
-      try {
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-        navigate("/home");
-      } catch (error) {
-        console.log(error);
-      }
-
-      return;
-    }
+  if (!formIsValid) {
+    return;
   }
 
+  if (mode === "register") {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        name: name,
+        phone: phone,
+        email: email,
+        points: 0
+      });
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Erro no cadastro:", error);
+    }
+
+    return;
+  }
+
+  if (mode === "login") {
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Erro no login:", error);
+    }
+  }
+}
   return (
     <main className="login-page">
 
