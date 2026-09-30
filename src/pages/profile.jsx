@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebase";
 import "./profile.css";
 
 export default function Profile() {
@@ -12,27 +13,18 @@ export default function Profile() {
     phone: "",
     points: 0,
   };
-//   const firebaseConfig = {
-//   apiKey: "AIzaSyAHJJBz4mHdiYY22ljvKaFs5d8gr2I3UXE",
-//   authDomain: "projeto-barberpro.firebaseapp.com",
-//   projectId: "projeto-barberpro",
-//   storageBucket: "projeto-barberpro.firebasestorage.app",
-//   messagingSenderId: "352168461023",
-//   appId: "1:352168461023:web:e260b2d289dbd25a8ddf6a",
-//   measurementId: "G-HN04Q124YP"
-// };
 
-  // Depois os agendamentos virão do banco.
   const appointments = 
   JSON.parse(localStorage.getItem("appointments")) || [];
 
-  function handleLogout() {
-    // Depois vamos usar:
-    // await signOut(auth);
+  async function handleLogout() {
+    try {
+      await signOut(auth);
 
-    navigate("/login", {
-      replace: true,
-    });
+      navigate("/login");
+    } catch (error) {
+      console.error("Erro ao sair:", error);
+    }
   }
   function formatDate(date) {
     const [year, month, day] = date.split("-");
