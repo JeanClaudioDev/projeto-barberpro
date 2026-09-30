@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/login.jsx";
 import Home from "./pages/home.jsx";
@@ -8,24 +8,74 @@ import Scheduling from "./pages/scheduling.jsx";
 import Confirmation from "./pages/confirmation.jsx";
 import Profile from "./pages/profile.jsx";
 
-export default function App(){
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+
+export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace/>}/>
+      <Route
+        path="/"
+        element={<Navigate to="/login" replace />}
+      />
 
-      <Route path="/login" element={<Login/>}/>
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-      <Route path="/home" element={<Home/>}/>
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/services" element={<Services/>}/>
+      <Route
+        path="/services"
+        element={
+          <ProtectedRoute>
+            <Services />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/professionals" element={<Professionals/>}/>
+      <Route
+        path="/professionals"
+        element={
+          <ProtectedRoute>
+            <Professionals />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/scheduling" element={<Scheduling/>}/>
-      
-      <Route path="/confirmation" element={<Confirmation/>}/>
+      <Route
+        path="/scheduling"
+        element={
+          <ProtectedRoute>
+            <Scheduling />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/profile" element={<Profile/>}/>
+      <Route
+        path="/confirmation"
+        element={
+          <ProtectedRoute>
+            <Confirmation />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
