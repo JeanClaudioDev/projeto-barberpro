@@ -333,6 +333,32 @@
 
   transform: translateY(-1px);
 }
+.cancel-button {
+  margin-top: 12px;
+
+  padding: 8px 14px;
+
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
+
+  background-color: transparent;
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.cancel-button:hover {
+  background-color: var(--surface);
+  border-color: var(--text);
+
+  transform: translateY(-1px);
+}
 
 
 /* =========================

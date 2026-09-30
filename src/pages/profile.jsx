@@ -12,6 +12,15 @@ export default function Profile() {
     phone: "",
     points: 0,
   };
+//   const firebaseConfig = {
+//   apiKey: "AIzaSyAHJJBz4mHdiYY22ljvKaFs5d8gr2I3UXE",
+//   authDomain: "projeto-barberpro.firebaseapp.com",
+//   projectId: "projeto-barberpro",
+//   storageBucket: "projeto-barberpro.firebasestorage.app",
+//   messagingSenderId: "352168461023",
+//   appId: "1:352168461023:web:e260b2d289dbd25a8ddf6a",
+//   measurementId: "G-HN04Q124YP"
+// };
 
   // Depois os agendamentos virão do banco.
   const appointments = 
@@ -29,23 +38,26 @@ export default function Profile() {
     const [year, month, day] = date.split("-");
       return `${day}/${month}/${year}`;
   }
-  function handleCancelAppointments(id) {
+  function handleCancelAppointment(id) {
     const appointments =
-    JSON.parse(localStorage.getItem("appointments")) || [];
+      JSON.parse(localStorage.getItem("appointments")) || [];
 
-    const updateAppointments = appointments.map((appointments) => {
+    const updatedAppointments = appointments.map((appointment) => {
       if (appointment.id === id) {
         return {
           ...appointment,
-          status:"cancelado",
+          status: "cancelado",
         };
       }
+
       return appointment;
     });
+
     localStorage.setItem(
       "appointments",
-      JSON.stringify(updateAppointments)
+      JSON.stringify(updatedAppointments)
     );
+
     window.location.reload();
   }
   return (
@@ -167,9 +179,13 @@ export default function Profile() {
                       {" às "}
                       {appointment.time}
                     </span>
-                    <button onClick={() =>handleCancelAppointments(appointment.id)}>
-                      Cancelar
-                    </button>
+                    {appointment.status === "marcado" && (
+                      <button className="cancel-button"
+                        onClick={() => handleCancelAppointment(appointment.id)}
+                      >
+                        Cancelar
+                      </button>
+                    )}
                   </article>
 
                 ))}

@@ -35,6 +35,32 @@ function generateTimes(duration) {
     }
     return dates;
   }
+  function formatDateButton(date) {
+  const weekDay = date.toLocaleDateString("pt-BR", {
+    weekday: "short",
+  });
+
+  const day = date.getDate();
+
+  return {
+    weekDay: weekDay.replace(".", "").toUpperCase(),
+    day,
+  };
+}
+
+function formatDateValue(date) {
+  const year = date.getFullYear();
+
+  const month = String(
+    date.getMonth() + 1
+  ).padStart(2, "0");
+
+  const day = String(
+    date.getDate()
+  ).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
 
 export default function Scheduling() {
   const navigate = useNavigate();
@@ -142,14 +168,36 @@ export default function Scheduling() {
 
         <div className="date-section">
           <h2>Escolha a data</h2>
-          <div className="date-grid">
-            {availableDates.map((dateItem) =>
-            <button key={dateItem.toISOString()}
-            type="button">
-              ...
-            </button>
-            )}
-          </div>
+        <div className="date-grid">
+          {availableDates.map((dateItem) => {
+            const formattedDate = formatDateButton(dateItem);
+            const dateValue = formatDateValue(dateItem);
+
+            return (
+              <button
+                key={dateValue}
+                type="button"
+                className={
+                  date === dateValue
+                    ? "date-button selected"
+                    : "date-button"
+                }
+                onClick={() => {
+                  setDate(dateValue);
+                  setTime("");
+                }}
+              >
+                <span>
+                  {formattedDate.weekDay}
+                </span>
+
+                <strong>
+                  {formattedDate.day}
+                </strong>
+              </button>
+            );
+          })}
+        </div>
         </div>
 
 

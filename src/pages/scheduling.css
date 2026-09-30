@@ -134,33 +134,66 @@
 /* =========================
    DATA
 ========================= */
+.date-grid {
+  display: grid;
 
-.date-section input {
-  width: 100%;
-  max-width: 320px;
+  grid-template-columns:
+    repeat(auto-fit, minmax(90px, 1fr));
 
-  padding: 12px 13px;
-
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-small);
-
-  background-color: var(--surface);
-  color: var(--text);
-
-  color-scheme: dark;
-
-  outline: none;
-
-  transition:
-    border-color var(--transition),
-    box-shadow var(--transition);
+  gap: 10px;
 }
 
-.date-section input:focus {
+.date-button {
+  padding: 14px 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+
+  background-color: var(--background);
+  color: var(--text);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background-color var(--transition);
+}
+
+.date-button span {
+  color: var(--muted);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.date-button strong {
+  font-size: 20px;
+}
+
+.date-button:hover {
   border-color: var(--text);
 
-  box-shadow:
-    0 0 0 3px rgba(244, 247, 245, 0.08);
+  transform: translateY(-1px);
+}
+
+.date-button.selected {
+  border-color: var(--text);
+
+  background-color: var(--text);
+  color: var(--surface);
+
+  box-shadow: var(--shadow-small);
+}
+
+.date-button.selected span {
+  color: var(--surface);
 }
 
 
