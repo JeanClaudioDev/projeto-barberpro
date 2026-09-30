@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../services/firebase.js";
+
 import "./login.css";
 
 function GoogleIcon() {
@@ -73,7 +77,7 @@ export default function Login() {
     return Object.keys(newErrors).length === 0;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const formIsValid = validateForm();
@@ -82,9 +86,21 @@ export default function Login() {
       return;
     }
 
-    navigate("/home");
-    // Depois entra Firebase aqui.
-    // Depois do login real também podemos navegar para Home.
+    if (mode === "register") {
+      try {
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        navigate("/home");
+      } catch (error) {
+        console.log(error);
+      }
+
+      return;
+    }
   }
 
   return (
