@@ -1,18 +1,39 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import { doc, getDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-import { auth } from "../services/firebase";
+
+import { useAuth } from "../context/AuthContext";
+import { auth, db } from "../services/firebase";
+
 import "./profile.css";
 
 export default function Profile() {
   const navigate = useNavigate();
 
-  // Depois esses dados virão do Firebase.
-  const user = {
-    name: "",
-    email: "",
-    phone: "",
-    points: 0,
-  };
+  const { user } = useAuth();
+  const [profile, setProfile] = useState(null)
+    useEffect(() => {
+    async function loadProfile() {
+      if (!user) {
+        return;
+      }
+
+      try {
+        const profileRef = doc(db, "users", user.uid);
+        const profileSnap = await getDoc(profileRef);
+
+        if (profileSnap.exists()) {
+          setProfile(profileSnap.data());
+        }
+      } catch (error) {
+        console.error("Erro ao buscar perfil:", error);
+      }
+    }
+
+    loadProfile();
+  }, [user]);
 
   const appointments = 
   JSON.parse(localStorage.getItem("appointments")) || [];
@@ -94,7 +115,7 @@ export default function Profile() {
                 <span>Nome</span>
 
                 <strong>
-                  {user.name || "Não informado"}
+                  {profile?.name || "Não informado"}
                 </strong>
               </div>
 
@@ -102,7 +123,7 @@ export default function Profile() {
                 <span>E-mail</span>
 
                 <strong>
-                  {user.email || "Não informado"}
+                  {profile?.email || "Não informado"}
                 </strong>
               </div>
 
@@ -110,7 +131,7 @@ export default function Profile() {
                 <span>Telefone</span>
 
                 <strong>
-                  {user.phone || "Não informado"}
+                  {profile?.phone || "Não informado"}
                 </strong>
               </div>
 
@@ -202,7 +223,7 @@ export default function Profile() {
             </p>
 
             <div className="loyalty-points">
-              <strong>{user.points}</strong>
+              <strong>{profile?.points || 0}</strong>
 
               <span>/ 8 pontos</span>
             </div>
@@ -212,20 +233,20 @@ export default function Profile() {
                 className="loyalty-progress-fill"
                 style={{
                   width: `${Math.min(
-                    (user.points / 8) * 100,
+                    ((profile?.points || 0 ) / 8) * 100,
                     100
                   )}%`,
                 }}
               />
             </div>
 
-            {user.points >= 8 ? (
+            {(profile?.points || 0) >= 8 ? (
               <p className="loyalty-message">
                 Você possui um corte grátis disponível.
               </p>
             ) : (
               <p className="loyalty-message">
-                Faltam {8 - user.points} pontos para
+                Faltam {8 - (profile?.points || 0)} pontos para
                 ganhar um corte grátis.
               </p>
             )}

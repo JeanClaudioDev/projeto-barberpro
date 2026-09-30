@@ -144,7 +144,7 @@
 }
 
 .mode-buttons button:hover {
-  color: var(--text);
+  color: black;
 }
 
 .mode-buttons button:active {
