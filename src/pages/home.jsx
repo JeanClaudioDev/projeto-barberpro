@@ -1,4 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+
+import { useAuth } from "../context/AuthContext";
+import { db } from "../services/firebase";
+
 import "./home.css";
 
 function InfoItem({ title, text }) {
@@ -12,8 +24,47 @@ function InfoItem({ title, text }) {
 
 export default function Home() {
   const navigate = useNavigate();
-  const appointments =
-  JSON.parse(localStorage.getItem("appointments")) || [];
+
+  const { user } = useAuth();
+
+  const [appointments,setAppointments] = useState([])
+
+  useEffect(() => {
+  async function loadAppointments() {
+    if (!user) {
+      return;
+    }
+
+    try {
+      const appointmentsRef = collection(db, "appointments");
+
+      const appointmentsQuery = query(
+        appointmentsRef,
+        where("userId", "==", user.uid)
+      );
+
+      const appointmentsSnapshot = await getDocs(
+        appointmentsQuery
+      );
+
+      const userAppointments = appointmentsSnapshot.docs.map(
+        (appointment) => ({
+          id: appointment.id,
+          ...appointment.data(),
+        })
+      );
+
+      setAppointments(userAppointments);
+    } catch (error) {
+      console.error(
+        "Erro ao buscar agendamentos:",
+        error
+      );
+    }
+  }
+
+  loadAppointments();
+}, [user]);
 
   const now = new Date();
 
