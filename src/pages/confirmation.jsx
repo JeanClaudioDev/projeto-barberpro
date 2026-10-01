@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { addDoc, collection } from "firebase/firestore";
+
+import { useAuth } from "../context/AuthContext";
+import { db } from "../services/firebase";
+
 import "./confirmation.css";
 
 export default function Confirmation() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { user } = useAuth();
 
   const selectedService = location.state?.service;
   const selectedProfessional = location.state?.professional;
@@ -44,29 +51,33 @@ export default function Confirmation() {
     return `${day}/${month}/${year}`;
     }
 
-  function handleConfirm() {
-    const newAppointment = {
-      id: Date.now(),
-      service: selectedService,
-      professional: selectedProfessional,
-      date: selectedDate,
-      time: selectedTime,
-      status: "marcado",
-    };
-    const savedAppointments = 
-    JSON.parse(localStorage.getItem("appointments")) || [];
-    const updateAppointments = [
-      ...savedAppointments,
-      newAppointment,
-    ];
-    localStorage.setItem(
-      "appointments",
-      JSON.stringify(updateAppointments)
-    );
-    console.log("Agendamento salvo", newAppointment)
-    setConfirmed(true);
-  };
+  async function handleConfirm() {
+    if (!user) {
+      return;
+    }
 
+    try {
+      const newAppointment = {
+        userId: user.uid,
+        service: selectedService,
+        professional: selectedProfessional,
+        date: selectedDate,
+        time: selectedTime,
+        status: "marcado",
+      };
+
+      await addDoc(
+        collection(db, "appointments"),
+        newAppointment
+      );
+
+      console.log("Agendamento salvo", newAppointment);
+
+      setConfirmed(true);
+    } catch (error) {
+      console.error("Erro ao salvar agendamento:", error);
+    }
+  }
   function handleEdit() {
     navigate("/scheduling", {
       state: {

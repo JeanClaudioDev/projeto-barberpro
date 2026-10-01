@@ -1,7 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { signOut } from "firebase/auth";
 
 import { useAuth } from "../context/AuthContext";
@@ -14,29 +22,44 @@ export default function Profile() {
 
   const { user } = useAuth();
   const [profile, setProfile] = useState(null)
-    useEffect(() => {
-    async function loadProfile() {
+
+  const [appointments, setAppointments] = useState([]);
+  useEffect(() => {
+    async function loadAppointments() {
       if (!user) {
         return;
       }
 
       try {
-        const profileRef = doc(db, "users", user.uid);
-        const profileSnap = await getDoc(profileRef);
+        const appointmentsRef = collection(db, "appointments");
 
-        if (profileSnap.exists()) {
-          setProfile(profileSnap.data());
-        }
+        const appointmentsQuery = query(
+          appointmentsRef,
+          where("userId", "==", user.uid)
+        );
+
+        const appointmentsSnapshot = await getDocs(
+          appointmentsQuery
+        );
+
+        const userAppointments = appointmentsSnapshot.docs.map(
+          (appointment) => ({
+            id: appointment.id,
+            ...appointment.data(),
+          })
+        );
+
+        setAppointments(userAppointments);
       } catch (error) {
-        console.error("Erro ao buscar perfil:", error);
+        console.error(
+          "Erro ao buscar agendamentos:",
+          error
+        );
       }
     }
 
-    loadProfile();
-  }, [user]);
-
-  const appointments = 
-  JSON.parse(localStorage.getItem("appointments")) || [];
+    loadAppointments();
+  }, [user]); 
 
   async function handleLogout() {
     try {
@@ -51,28 +74,23 @@ export default function Profile() {
     const [year, month, day] = date.split("-");
       return `${day}/${month}/${year}`;
   }
-  function handleCancelAppointment(id) {
-    const appointments =
-      JSON.parse(localStorage.getItem("appointments")) || [];
+  async function handleCancelAppointment(id) {
+    try {
+      const appointmentRef = doc(db, "appointments", id);
 
-    const updatedAppointments = appointments.map((appointment) => {
-      if (appointment.id === id) {
-        return {
-          ...appointment,
-          status: "cancelado",
-        };
-      }
+      await updateDoc(appointmentRef, {
+        status: "cancelado",
+      });
 
-      return appointment;
-    });
-
-    localStorage.setItem(
-      "appointments",
-      JSON.stringify(updatedAppointments)
-    );
-
-    window.location.reload();
-  }
+      setAppointments((currentAppointments) =>
+        currentAppointments.filter(
+          (appointment) => appointment.id !== id
+        )
+      );
+          } catch (error) {
+            console.error("Erro ao cancelar agendamento:", error);
+          }
+        }
   return (
     <main className="profile-page">
 
