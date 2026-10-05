@@ -11,6 +11,8 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { db } from "../services/firebase";
 
+import services from "../data/services.js";
+
 import "./home.css";
 
 function InfoItem({ title, text }) {
@@ -169,10 +171,29 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="empty-card">
-              <p>
-                Os serviços da barbearia aparecerão aqui.
-              </p>
+            <div className="home-services-list">
+              {services.slice(0, 4).map((service) => (
+                <article
+                  key={service.id}
+                  className="home-service-card"
+                >
+                  <div>
+                    <span className="home-service-category">
+                      {service.category}
+                    </span>
+
+                    <h3>{service.name}</h3>
+
+                    <p>
+                      {service.duration} min
+                    </p>
+                  </div>
+
+                  <strong>
+                    R$ {service.price.toFixed(2).replace(".", ",")}
+                  </strong>
+                </article>
+              ))}
             </div>
           </section>
 
@@ -260,30 +281,30 @@ export default function Home() {
 
             <div className="info-list">
 
-              <InfoItem
-                title="Localização"
-                text="A definir"
-              />
+            <InfoItem
+              title="Localização"
+              text="Av. Santos Dumont, 1500 · Aldeota"
+            />
 
-              <InfoItem
-                title="Horários de atendimento"
-                text="07:00 às 19:00"
-              />
+            <InfoItem
+              title="Horários de atendimento"
+              text="Segunda a sábado · 07:00 às 19:00"
+            />
 
-              <InfoItem
-                title="Formas de pagamento"
-                text="A definir"
-              />
+            <InfoItem
+              title="Formas de pagamento"
+              text="Pix, cartão de crédito e débito"
+            />
 
-              <InfoItem
-                title="Redes sociais"
-                text="A definir"
-              />
+            <InfoItem
+              title="Redes sociais"
+              text="@barberpro"
+            />
 
-              <InfoItem
-                title="Contato"
-                text="A definir"
-              />
+            <InfoItem
+              title="Contato"
+              text="(85) 99999-0000"
+            />
 
             </div>
           </section>
