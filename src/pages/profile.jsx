@@ -125,11 +125,18 @@ export default function Profile() {
         status: "cancelado",
       });
 
+      // Mantém o agendamento no histórico,
+      // apenas altera o status.
       setAppointments(
         (currentAppointments) =>
-          currentAppointments.filter(
+          currentAppointments.map(
             (appointment) =>
-              appointment.id !== id
+              appointment.id === id
+                ? {
+                    ...appointment,
+                    status: "cancelado",
+                  }
+                : appointment
           )
       );
     } catch (error) {
@@ -138,6 +145,34 @@ export default function Profile() {
         error
       );
     }
+  }
+
+  function getStatusInfo(status) {
+    if (status === "marcado") {
+      return {
+        label: "Agendado",
+        className: "status-marked",
+      };
+    }
+
+    if (status === "concluido") {
+      return {
+        label: "Concluído",
+        className: "status-completed",
+      };
+    }
+
+    if (status === "cancelado") {
+      return {
+        label: "Cancelado",
+        className: "status-cancelled",
+      };
+    }
+
+    return {
+      label: "Status desconhecido",
+      className: "",
+    };
   }
 
   return (
@@ -238,45 +273,63 @@ export default function Profile() {
               <div className="appointments-list">
 
                 {appointments.map(
-                  (appointment) => (
+                  (appointment) => {
 
-                    <article
-                      key={appointment.id}
-                      className="appointment-card"
-                    >
-                      <h3>
-                        {appointment.service.name}
-                      </h3>
+                    const statusInfo =
+                      getStatusInfo(
+                        appointment.status
+                      );
 
-                      <p>
-                        {appointment.professional.name}
-                      </p>
+                    return (
+                      <article
+                        key={appointment.id}
+                        className="appointment-card"
+                      >
+                        <div className="appointment-card-top">
 
-                      <span>
-                        {formatDate(
-                          appointment.date
+                          <div>
+                            <h3>
+                              {appointment.service.name}
+                            </h3>
+
+                            <p>
+                              {appointment.professional.name}
+                            </p>
+
+                            <span>
+                              {formatDate(
+                                appointment.date
+                              )}
+                              {" às "}
+                              {appointment.time}
+                            </span>
+                          </div>
+
+                          <span
+                            className={`appointment-status ${statusInfo.className}`}
+                          >
+                            {statusInfo.label}
+                          </span>
+
+                        </div>
+
+                        {appointment.status ===
+                          "marcado" && (
+                          <button
+                            className="cancel-button"
+                            onClick={() =>
+                              handleCancelAppointment(
+                                appointment.id
+                              )
+                            }
+                          >
+                            Cancelar
+                          </button>
                         )}
-                        {" às "}
-                        {appointment.time}
-                      </span>
 
-                      {appointment.status ===
-                        "marcado" && (
-                        <button
-                          className="cancel-button"
-                          onClick={() =>
-                            handleCancelAppointment(
-                              appointment.id
-                            )
-                          }
-                        >
-                          Cancelar
-                        </button>
-                      )}
-
-                    </article>
-
-                  )
+                      </article>
+                    );
+                  }
                 )}
 
               </div>

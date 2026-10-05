@@ -404,3 +404,49 @@
     display: flex;
   }
 }
+/* =========================
+   STATUS DOS AGENDAMENTOS
+========================= */
+
+.appointment-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.appointment-status {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Agendado */
+.status-marked {
+  background-color: rgba(255, 193, 7, 0.12);
+  color: #ffc107;
+}
+
+/* Concluído */
+.status-completed {
+  background-color: rgba(76, 175, 80, 0.12);
+  color: #4caf50;
+}
+
+/* Cancelado */
+.status-cancelled {
+  background-color: rgba(244, 67, 54, 0.12);
+  color: #f44336;
+}
+
+@media (max-width: 600px) {
+  .appointment-card-top {
+    flex-direction: column;
+  }
+
+  .appointment-status {
+    align-self: flex-start;
+  }
+}
