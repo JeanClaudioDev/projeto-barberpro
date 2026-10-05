@@ -8,6 +8,8 @@ import Scheduling from "./pages/scheduling.jsx";
 import Confirmation from "./pages/confirmation.jsx";
 import Profile from "./pages/profile.jsx";
 
+import BarberPanel from "./pages/barberPanel.jsx";
+
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 export default function App() {
@@ -75,6 +77,10 @@ export default function App() {
             <Profile />
           </ProtectedRoute>
         }
+      />
+      <Route
+        path="/barber-panel"
+        element={<BarberPanel />}
       />
     </Routes>
   );

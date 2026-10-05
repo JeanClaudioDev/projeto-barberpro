@@ -1,0 +1,131 @@
+.barber-panel-page {
+  min-height: 100vh;
+  padding: 32px;
+  background-color: #575A5E;
+  color: #F4F7F5;
+}
+
+.barber-panel-header {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+}
+
+.barber-panel-header h1 {
+  margin-bottom: 8px;
+}
+
+.barber-panel-header p {
+  color: #A7A2A9;
+}
+
+.barber-section {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+}
+
+.barber-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.barber-section-header h2 {
+  margin: 0;
+}
+
+.barber-section-header span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 28px;
+  height: 28px;
+
+  padding: 0 8px;
+
+  background-color: #222823;
+  border-radius: 20px;
+
+  color: #F4F7F5;
+  font-size: 14px;
+}
+
+.barber-appointments {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.barber-appointment-card {
+  padding: 20px;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+}
+
+.barber-appointment-card h3 {
+  margin-bottom: 18px;
+}
+
+.barber-appointment-card p {
+  margin: 8px 0;
+  color: #A7A2A9;
+}
+
+.barber-appointment-card button {
+  width: 100%;
+
+  margin-top: 20px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #F4F7F5;
+  color: #222823;
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.barber-appointment-card button:hover {
+  opacity: 0.9;
+}
+
+.barber-appointment-card.completed {
+  opacity: 0.8;
+}
+
+.completed-label {
+  display: block;
+
+  margin-top: 18px;
+
+  color: #F4F7F5;
+  font-weight: bold;
+}
+
+.barber-empty {
+  padding: 40px;
+
+  text-align: center;
+
+  background-color: #222823;
+
+  border-radius: 16px;
+
+  color: #A7A2A9;
+}
+
+@media (max-width: 700px) {
+
+  .barber-panel-page {
+    padding: 20px;
+  }
+
+  .barber-appointments {
+    grid-template-columns: 1fr;
+  }
+}
