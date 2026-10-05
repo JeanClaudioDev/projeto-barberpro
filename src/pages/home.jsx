@@ -297,7 +297,8 @@ export default function Home() {
               Acompanhe seus pontos e resgate recompensas.
             </p>
 
-            <button className="secondary-button">
+            <button className="secondary-button"
+            onClick={() => navigate("/profile")}>
               Ver meus pontos
             </button>
           </section>

@@ -21,9 +21,37 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const { user } = useAuth();
-  const [profile, setProfile] = useState(null)
 
+  const [profile, setProfile] = useState(null);
   const [appointments, setAppointments] = useState([]);
+
+  // BUSCAR DADOS DO PERFIL
+  useEffect(() => {
+    async function loadProfile() {
+      if (!user) {
+        return;
+      }
+
+      try {
+        const profileRef = doc(db, "users", user.uid);
+
+        const profileSnapshot = await getDoc(profileRef);
+
+        if (profileSnapshot.exists()) {
+          setProfile(profileSnapshot.data());
+        }
+      } catch (error) {
+        console.error(
+          "Erro ao buscar perfil:",
+          error
+        );
+      }
+    }
+
+    loadProfile();
+  }, [user]);
+
+  // BUSCAR AGENDAMENTOS
   useEffect(() => {
     async function loadAppointments() {
       if (!user) {
@@ -31,7 +59,10 @@ export default function Profile() {
       }
 
       try {
-        const appointmentsRef = collection(db, "appointments");
+        const appointmentsRef = collection(
+          db,
+          "appointments"
+        );
 
         const appointmentsQuery = query(
           appointmentsRef,
@@ -42,12 +73,13 @@ export default function Profile() {
           appointmentsQuery
         );
 
-        const userAppointments = appointmentsSnapshot.docs.map(
-          (appointment) => ({
-            id: appointment.id,
-            ...appointment.data(),
-          })
-        );
+        const userAppointments =
+          appointmentsSnapshot.docs.map(
+            (appointment) => ({
+              id: appointment.id,
+              ...appointment.data(),
+            })
+          );
 
         setAppointments(userAppointments);
       } catch (error) {
@@ -59,7 +91,7 @@ export default function Profile() {
     }
 
     loadAppointments();
-  }, [user]); 
+  }, [user]);
 
   async function handleLogout() {
     try {
@@ -67,30 +99,47 @@ export default function Profile() {
 
       navigate("/login");
     } catch (error) {
-      console.error("Erro ao sair:", error);
+      console.error(
+        "Erro ao sair:",
+        error
+      );
     }
   }
+
   function formatDate(date) {
-    const [year, month, day] = date.split("-");
-      return `${day}/${month}/${year}`;
+    const [year, month, day] =
+      date.split("-");
+
+    return `${day}/${month}/${year}`;
   }
+
   async function handleCancelAppointment(id) {
     try {
-      const appointmentRef = doc(db, "appointments", id);
+      const appointmentRef = doc(
+        db,
+        "appointments",
+        id
+      );
 
       await updateDoc(appointmentRef, {
         status: "cancelado",
       });
 
-      setAppointments((currentAppointments) =>
-        currentAppointments.filter(
-          (appointment) => appointment.id !== id
-        )
+      setAppointments(
+        (currentAppointments) =>
+          currentAppointments.filter(
+            (appointment) =>
+              appointment.id !== id
+          )
       );
-          } catch (error) {
-            console.error("Erro ao cancelar agendamento:", error);
-          }
-        }
+    } catch (error) {
+      console.error(
+        "Erro ao cancelar agendamento:",
+        error
+      );
+    }
+  }
+
   return (
     <main className="profile-page">
 
@@ -113,7 +162,6 @@ export default function Profile() {
         </div>
 
       </header>
-
 
       <div className="profile-layout">
 
@@ -157,7 +205,6 @@ export default function Profile() {
 
           </section>
 
-
           {/* AGENDAMENTOS */}
           <section className="profile-card">
 
@@ -171,7 +218,6 @@ export default function Profile() {
                 Novo agendamento
               </button>
             </div>
-
 
             {appointments.length === 0 ? (
 
@@ -191,35 +237,47 @@ export default function Profile() {
 
               <div className="appointments-list">
 
-                {appointments.map((appointment) => (
+                {appointments.map(
+                  (appointment) => (
 
-                  <article
-                    key={appointment.id}
-                    className="appointment-card"
-                  >
-                    <h3>
-                      {appointment.service.name}
-                    </h3>
+                    <article
+                      key={appointment.id}
+                      className="appointment-card"
+                    >
+                      <h3>
+                        {appointment.service.name}
+                      </h3>
 
-                    <p>
-                      {appointment.professional.name}
-                    </p>
+                      <p>
+                        {appointment.professional.name}
+                      </p>
 
-                    <span>
-                      {formatDate(appointment.date)}
-                      {" às "}
-                      {appointment.time}
-                    </span>
-                    {appointment.status === "marcado" && (
-                      <button className="cancel-button"
-                        onClick={() => handleCancelAppointment(appointment.id)}
-                      >
-                        Cancelar
-                      </button>
-                    )}
-                  </article>
+                      <span>
+                        {formatDate(
+                          appointment.date
+                        )}
+                        {" às "}
+                        {appointment.time}
+                      </span>
 
-                ))}
+                      {appointment.status ===
+                        "marcado" && (
+                        <button
+                          className="cancel-button"
+                          onClick={() =>
+                            handleCancelAppointment(
+                              appointment.id
+                            )
+                          }
+                        >
+                          Cancelar
+                        </button>
+                      )}
+
+                    </article>
+
+                  )
+                )}
 
               </div>
 
@@ -228,7 +286,6 @@ export default function Profile() {
           </section>
 
         </section>
-
 
         {/* COLUNA DIREITA */}
         <aside className="profile-sidebar">
@@ -241,36 +298,48 @@ export default function Profile() {
             </p>
 
             <div className="loyalty-points">
-              <strong>{profile?.points || 0}</strong>
 
-              <span>/ 8 pontos</span>
+              <strong>
+                {profile?.points || 0}
+              </strong>
+
+              <span>
+                / 8 pontos
+              </span>
+
             </div>
 
             <div className="loyalty-progress">
+
               <div
                 className="loyalty-progress-fill"
                 style={{
                   width: `${Math.min(
-                    ((profile?.points || 0 ) / 8) * 100,
+                    ((profile?.points || 0) / 8) * 100,
                     100
                   )}%`,
                 }}
               />
+
             </div>
 
             {(profile?.points || 0) >= 8 ? (
+
               <p className="loyalty-message">
                 Você possui um corte grátis disponível.
               </p>
+
             ) : (
+
               <p className="loyalty-message">
-                Faltam {8 - (profile?.points || 0)} pontos para
-                ganhar um corte grátis.
+                Faltam{" "}
+                {8 - (profile?.points || 0)}
+                {" "}pontos para ganhar um corte grátis.
               </p>
+
             )}
 
           </section>
-
 
           {/* CONTA */}
           <section className="profile-card">
