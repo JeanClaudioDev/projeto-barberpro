@@ -12,7 +12,7 @@ function generateTimes(duration) {
   for (
     let minutes = openingTime;
     minutes <= closingTime - duration;
-    minutes += 15
+    minutes += 30
   ) {
     const hour = Math.floor(minutes / 60);
     const minute = minutes % 60;
