@@ -1,5 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+
+import { db } from "../services/firebase";
 
 import "./scheduling.css";
 
@@ -25,17 +34,29 @@ function generateTimes(duration) {
 
   return times;
 }
-  function generateDates() {
-    const dates = [];
-    const today = new Date();
-    for(let i = 0; i < 7; i++){
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      dates.push(date)
-    }
-    return dates;
+
+function timeToMinutes(time) {
+  const [hour, minute] = time.split(":").map(Number);
+
+  return hour * 60 + minute;
+}
+
+function generateDates() {
+  const dates = [];
+  const today = new Date();
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+
+    date.setDate(today.getDate() + i);
+
+    dates.push(date);
   }
-  function formatDateButton(date) {
+
+  return dates;
+}
+
+function formatDateButton(date) {
   const weekDay = date.toLocaleDateString("pt-BR", {
     weekday: "short",
   });
@@ -71,8 +92,62 @@ export default function Scheduling() {
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [appointments, setAppointments] = useState([]);
 
   const availableDates = generateDates();
+
+  useEffect(() => {
+    async function loadAppointments() {
+      if (!selectedProfessional || !date) {
+        setAppointments([]);
+        return;
+      }
+
+      try {
+        const appointmentsRef = collection(
+          db,
+          "appointments"
+        );
+
+        const appointmentsQuery = query(
+          appointmentsRef,
+          where(
+            "professionalId",
+            "==",
+            selectedProfessional.id
+          )
+        );
+
+        const appointmentsSnapshot = await getDocs(
+          appointmentsQuery
+        );
+
+        const professionalAppointments =
+          appointmentsSnapshot.docs
+            .map((appointment) => ({
+              id: appointment.id,
+              ...appointment.data(),
+            }))
+            .filter(
+              (appointment) =>
+                appointment.date === date &&
+                appointment.status === "marcado"
+            );
+            console.log("Agendamentos encontrados",
+              professionalAppointments
+            )
+
+        setAppointments(professionalAppointments);
+      } catch (error) {
+        console.error(
+          "Erro ao buscar horários ocupados:",
+          error
+        );
+      }
+    }
+
+    loadAppointments();
+  }, [selectedProfessional, date]);
 
   if (!selectedService || !selectedProfessional) {
     return (
@@ -92,12 +167,41 @@ export default function Scheduling() {
       </main>
     );
   }
+
   const availableTimes = generateTimes(
     selectedService.duration
   );
 
+  function isTimeOccupied(startTime) {
+    const newStart = timeToMinutes(startTime);
+
+    return appointments.some((appointment) => {
+      const appointmentStart = timeToMinutes(
+        appointment.time
+      );
+
+      const appointmentDuration =
+        appointment.service.duration;
+
+      const blockedDuration =
+        Math.ceil(appointmentDuration / 30) * 30;
+
+      const appointmentEnd =
+        appointmentStart + blockedDuration;
+
+      return (
+        newStart >= appointmentStart &&
+        newStart < appointmentEnd
+      );
+    });
+  }
+
   function handleContinue() {
     if (date === "" || time === "") {
+      return;
+    }
+
+    if (isTimeOccupied(time)) {
       return;
     }
 
@@ -138,6 +242,7 @@ export default function Scheduling() {
         </div>
 
       </header>
+
       <section className="scheduling-summary">
 
         <div className="summary-item">
@@ -154,54 +259,67 @@ export default function Scheduling() {
               .replace(".", ",")}
           </p>
         </div>
+
         <div className="summary-item">
           <span>Profissional</span>
+
           <strong>
             {selectedProfessional.name}
           </strong>
+
           <p>
             {selectedProfessional.specialty}
           </p>
         </div>
+
       </section>
+
       <section className="scheduling-content">
 
         <div className="date-section">
+
           <h2>Escolha a data</h2>
-        <div className="date-grid">
-          {availableDates.map((dateItem) => {
-            const formattedDate = formatDateButton(dateItem);
-            const dateValue = formatDateValue(dateItem);
 
-            return (
-              <button
-                key={dateValue}
-                type="button"
-                className={
-                  date === dateValue
-                    ? "date-button selected"
-                    : "date-button"
-                }
-                onClick={() => {
-                  setDate(dateValue);
-                  setTime("");
-                }}
-              >
-                <span>
-                  {formattedDate.weekDay}
-                </span>
+          <div className="date-grid">
 
-                <strong>
-                  {formattedDate.day}
-                </strong>
-              </button>
-            );
-          })}
+            {availableDates.map((dateItem) => {
+              const formattedDate =
+                formatDateButton(dateItem);
+
+              const dateValue =
+                formatDateValue(dateItem);
+
+              return (
+                <button
+                  key={dateValue}
+                  type="button"
+                  className={
+                    date === dateValue
+                      ? "date-button selected"
+                      : "date-button"
+                  }
+                  onClick={() => {
+                    setDate(dateValue);
+                    setTime("");
+                  }}
+                >
+                  <span>
+                    {formattedDate.weekDay}
+                  </span>
+
+                  <strong>
+                    {formattedDate.day}
+                  </strong>
+                </button>
+              );
+            })}
+
+          </div>
+
         </div>
-        </div>
-
 
         <div className="time-section">
+
           <h2>Escolha o horário</h2>
 
           {!date ? (
@@ -213,39 +331,52 @@ export default function Scheduling() {
           ) : (
             <div className="time-grid">
 
-              {availableTimes.map((availableTime) => (
-                <button
-                  key={availableTime}
-                  type="button"
-                  className={
-                    time === availableTime
-                      ? "time-button selected"
-                      : "time-button"
-                  }
-                  onClick={() =>
-                    setTime(availableTime)
-                  }
-                >
-                  {availableTime}
-                </button>
-              ))}
+              {availableTimes.map((availableTime) => {
+                const occupied =
+                  isTimeOccupied(availableTime);
+
+                return (
+                  <button
+                    key={availableTime}
+                    type="button"
+                    disabled={occupied}
+                    className={
+                      occupied
+                        ? "time-button occupied"
+                        : time === availableTime
+                        ? "time-button selected"
+                        : "time-button"
+                    }
+                    onClick={() => {
+                      if (!occupied) {
+                        setTime(availableTime);
+                      }
+                    }}
+                  >
+                    {availableTime}
+                  </button>
+                );
+              })}
 
             </div>
           )}
+
         </div>
 
       </section>
 
-
       <div className="scheduling-footer">
 
         <button
-          className="continue-button" disabled={!date || !time}
+          className="continue-button"
+          disabled={!date || !time}
           onClick={handleContinue}
         >
           Continuar
         </button>
+
       </div>
+
     </main>
   );
 }
