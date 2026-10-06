@@ -174,6 +174,37 @@ export default function Profile() {
       className: "",
     };
   }
+    async function handleRedeemFreeCut() {
+      if (!user || !profile) return;
+
+      const currentPoints = profile.points || 0;
+      const currentFreeCuts = profile.freeCuts || 0;
+
+      if (currentPoints < 8) return;
+
+      try {
+        const userRef = doc(db, "users", user.uid);
+
+        const newPoints = currentPoints - 8;
+        const newFreeCuts = currentFreeCuts + 1;
+
+        await updateDoc(userRef, {
+          points: newPoints,
+          freeCuts: newFreeCuts,
+        });
+
+        setProfile((currentProfile) => ({
+          ...currentProfile,
+          points: newPoints,
+          freeCuts: newFreeCuts,
+        }));
+      } catch (error) {
+        console.error(
+          "Erro ao resgatar corte grátis:",
+          error
+        );
+      }
+    }
 
   return (
     <main className="profile-page">
@@ -378,9 +409,25 @@ export default function Profile() {
 
             {(profile?.points || 0) >= 8 ? (
 
+            <div className="loyalty-redeem">
+
               <p className="loyalty-message">
                 Você possui um corte grátis disponível.
               </p>
+
+              <p className="free-cuts-count">
+                Cortes grátis disponíveis:{" "}
+                <strong>{profile?.freeCuts || 0}</strong>
+              </p>
+
+              <button
+                className="redeem-button"
+                onClick={handleRedeemFreeCut}
+              >
+                Resgatar corte grátis
+              </button>
+
+            </div>
 
             ) : (
 

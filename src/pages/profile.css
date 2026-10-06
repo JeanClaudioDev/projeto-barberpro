@@ -450,3 +450,73 @@
     align-self: flex-start;
   }
 }
+.loyalty-redeem {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.redeem-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--radius-small);
+  background-color: var(--text);
+  color: var(--background);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    opacity var(--transition);
+}
+
+.redeem-button:hover {
+  transform: translateY(-1px);
+}
+
+.redeem-button:active {
+  transform: translateY(0);
+}
+.free-cuts-count {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.free-cuts-count strong {
+  color: var(--text);
+}
+.free-cut-option {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+  background-color: var(--surface);
+}
+
+.free-cut-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.free-cut-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--text);
+  cursor: pointer;
+}
+
+.free-cut-option p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.free-cut-option strong {
+  color: var(--text);
+}
