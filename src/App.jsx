@@ -7,80 +7,30 @@ import Professionals from "./pages/professionals.jsx";
 import Scheduling from "./pages/scheduling.jsx";
 import Confirmation from "./pages/confirmation.jsx";
 import Profile from "./pages/profile.jsx";
-
 import BarberPanel from "./pages/barberPanel.jsx";
 
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import BarberRoute from "./components/BarberRoute";
 
 export default function App() {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Navigate to="/login" replace />}
-      />
+      <Route path="/" element={<Navigate to="/login" replace />} />
 
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+      <Route path="/login" element={<Login />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/professionals" element={<Professionals />} />
+      <Route path="/scheduling" element={<Scheduling />} />
+      <Route path="/confirmation" element={<Confirmation />} />
+      <Route path="/profile" element={<Profile />} />
 
-      <Route
-        path="/home"
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/services"
-        element={
-          <ProtectedRoute>
-            <Services />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/professionals"
-        element={
-          <ProtectedRoute>
-            <Professionals />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/scheduling"
-        element={
-          <ProtectedRoute>
-            <Scheduling />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/confirmation"
-        element={
-          <ProtectedRoute>
-            <Confirmation />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
       <Route
         path="/barber-panel"
-        element={<BarberPanel />}
+        element={
+          <BarberRoute>
+            <BarberPanel />
+          </BarberRoute>
+        }
       />
     </Routes>
   );
