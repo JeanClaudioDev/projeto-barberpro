@@ -1,131 +1,609 @@
+/* =========================
+   BARBER PANEL
+========================= */
+
 .barber-panel-page {
   min-height: 100vh;
-  padding: 32px;
-  background-color: #575A5E;
-  color: #F4F7F5;
+
+  background-color: var(--page-background);
+  color: var(--text);
 }
+
+
+/* =========================
+   HEADER
+========================= */
 
 .barber-panel-header {
-  max-width: 1000px;
-  margin: 0 auto 40px;
+  width: 100%;
+  height: 76px;
+
+  padding: 0 max(28px, calc((100vw - 1200px) / 2));
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  box-sizing: border-box;
+
+  background-color: var(--header-footer);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
-.barber-panel-header h1 {
-  margin-bottom: 8px;
+.barber-brand {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
 }
 
-.barber-panel-header p {
-  color: #A7A2A9;
+.barber-logo {
+  margin: 0 0 3px;
+
+  color: var(--text);
+
+  font-size: 17px;
+  font-weight: 800;
+
+  letter-spacing: 0.04em;
 }
+
+.barber-brand span {
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.barber-header-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.barber-user-name {
+  max-width: 180px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   SAIR
+========================= */
+
+.barber-logout-button {
+  height: 40px;
+
+  padding: 0 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
+
+  background-color: transparent;
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.barber-logout-button:hover {
+  background-color: var(--surface);
+  border-color: var(--text);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.barber-panel-container {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 34px 28px 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   WELCOME
+========================= */
+
+.barber-welcome {
+  margin-bottom: 30px;
+}
+
+.barber-eyebrow {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.barber-welcome h1 {
+  margin: 0 0 7px;
+
+  color: var(--text);
+
+  font-size: clamp(28px, 4vw, 36px);
+  line-height: 1.15;
+}
+
+.barber-welcome p {
+  max-width: 600px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   SEÇÕES
+========================= */
 
 .barber-section {
-  max-width: 1000px;
-  margin: 0 auto 40px;
+  margin-bottom: 34px;
 }
 
 .barber-section-header {
+  margin-bottom: 15px;
+
   display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.barber-section-header > div {
+  min-width: 0;
+}
+
+.barber-section-header > div > span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
 }
 
 .barber-section-header h2 {
   margin: 0;
+
+  color: var(--text);
+
+  font-size: 19px;
 }
 
-.barber-section-header span {
+.barber-section-header > strong {
+  min-width: 30px;
+  height: 30px;
+
+  padding: 0 8px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  min-width: 28px;
-  height: 28px;
+  box-sizing: border-box;
 
-  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
 
-  background-color: #222823;
-  border-radius: 20px;
+  background-color: var(--surface);
 
-  color: #F4F7F5;
-  font-size: 14px;
+  color: var(--text);
+
+  font-size: 12px;
 }
+
+
+/* =========================
+   CARDS
+========================= */
 
 .barber-appointments {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
 }
 
 .barber-appointment-card {
-  padding: 20px;
+  padding: 21px;
 
-  background-color: #222823;
+  box-sizing: border-box;
 
-  border-radius: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+
+  background-color: var(--surface);
+
+  box-shadow: var(--shadow-small);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition);
 }
 
-.barber-appointment-card h3 {
-  margin-bottom: 18px;
+.barber-appointment-card:hover {
+  transform: translateY(-2px);
+
+  border-color: var(--border-strong);
 }
 
-.barber-appointment-card p {
-  margin: 8px 0;
-  color: #A7A2A9;
+
+/* =========================
+   TOPO DO CARD
+========================= */
+
+.barber-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
 }
 
-.barber-appointment-card button {
+.barber-card-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+.barber-card-top h3 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.appointment-status-badge,
+.completed-badge {
+  flex-shrink: 0;
+
+  padding: 6px 9px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.appointment-status-badge {
+  background-color: rgba(255, 193, 7, 0.12);
+
+  color: #ffc107;
+}
+
+.completed-badge {
+  background-color: rgba(76, 175, 80, 0.12);
+
+  color: #4caf50;
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.barber-appointment-info {
+  margin-top: 21px;
+  padding-top: 17px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.5fr)
+    minmax(90px, 1fr)
+    minmax(70px, 0.7fr);
+
+  gap: 12px;
+
+  border-top: 1px solid var(--border);
+}
+
+.barber-appointment-info div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.barber-appointment-info span {
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+.barber-appointment-info strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--text);
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   CONCLUIR
+========================= */
+
+.complete-button {
   width: 100%;
 
-  margin-top: 20px;
-  padding: 12px;
+  height: 42px;
+
+  margin-top: 19px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-small);
 
-  background-color: #F4F7F5;
-  color: #222823;
+  background-color: var(--text);
+  color: var(--surface);
 
-  font-weight: bold;
+  font-size: 12px;
+  font-weight: 700;
+
   cursor: pointer;
+
+  transition:
+    transform var(--transition),
+    opacity var(--transition);
 }
 
-.barber-appointment-card button:hover {
+.complete-button:hover {
+  transform: translateY(-1px);
   opacity: 0.9;
 }
 
+
+/* =========================
+   CONCLUÍDO
+========================= */
+
 .barber-appointment-card.completed {
-  opacity: 0.8;
+  opacity: 0.86;
 }
 
-.completed-label {
-  display: block;
-
-  margin-top: 18px;
-
-  color: #F4F7F5;
-  font-weight: bold;
+.barber-appointment-card.completed:hover {
+  opacity: 1;
 }
+
+
+/* =========================
+   VAZIO
+========================= */
 
 .barber-empty {
-  padding: 40px;
+  min-height: 140px;
 
-  text-align: center;
+  padding: 25px;
 
-  background-color: #222823;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  border-radius: 16px;
+  gap: 15px;
 
-  color: #A7A2A9;
+  box-sizing: border-box;
+
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-medium);
+
+  background-color: var(--surface);
+
+  text-align: left;
 }
 
-@media (max-width: 700px) {
+.barber-empty-icon {
+  width: 38px;
+  height: 38px;
 
-  .barber-panel-page {
-    padding: 20px;
-  }
+  flex-shrink: 0;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: rgba(244, 247, 245, 0.06);
+
+  color: var(--text);
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.barber-empty strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: var(--text);
+
+  font-size: 13px;
+}
+
+.barber-empty p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.barber-panel-footer {
+  width: 100%;
+
+  margin-top: 45px;
+
+  padding: 24px max(28px, calc((100vw - 1200px) / 2));
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  box-sizing: border-box;
+
+  background-color: var(--header-footer);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: var(--muted);
+}
+
+.barber-panel-footer > div {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.barber-panel-footer strong {
+  color: var(--text);
+
+  font-size: 13px;
+}
+
+.barber-panel-footer span {
+  font-size: 11px;
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 850px) {
   .barber-appointments {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .barber-panel-header {
+    height: auto;
+
+    padding-top: 17px;
+    padding-bottom: 17px;
+
+    align-items: flex-start;
+  }
+
+  .barber-header-actions {
+    gap: 8px;
+  }
+
+  .barber-user-name {
+    display: none;
+  }
+
+  .barber-panel-container {
+    padding: 26px 16px 0;
+  }
+
+  .barber-welcome {
+    margin-bottom: 24px;
+  }
+
+  .barber-card-top {
+    flex-direction: column;
+  }
+
+  .barber-appointment-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .barber-appointment-info div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .barber-panel-footer {
+    padding: 20px 16px;
+
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .barber-panel-footer > div {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 4px;
   }
 }
