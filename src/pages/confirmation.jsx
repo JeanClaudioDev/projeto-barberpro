@@ -59,18 +59,30 @@ export default function Confirmation() {
   ) {
     return (
       <main className="confirmation-page">
+
         <div className="confirmation-warning">
-          <h1>Agendamento incompleto</h1>
+
+          <span className="confirmation-eyebrow">
+            BARBERPRO
+          </span>
+
+          <h1>
+            Agendamento incompleto
+          </h1>
 
           <p>
             Algumas informações estão faltando.
             Inicie o agendamento novamente.
           </p>
 
-          <button onClick={() => navigate("/services")}>
+          <button
+            onClick={() => navigate("/services")}
+          >
             Ver serviços
           </button>
+
         </div>
+
       </main>
     );
   }
@@ -93,22 +105,33 @@ export default function Confirmation() {
         collection(db, "appointments")
       );
 
-      const userRef = doc(db, "users", user.uid);
+      const userRef = doc(
+        db,
+        "users",
+        user.uid
+      );
 
       await runTransaction(db, async (transaction) => {
+
         const userSnapshot =
           await transaction.get(userRef);
 
         if (!userSnapshot.exists()) {
-          throw new Error("Perfil do cliente não encontrado.");
+          throw new Error(
+            "Perfil do cliente não encontrado."
+          );
         }
 
-        const userData = userSnapshot.data();
+        const userData =
+          userSnapshot.data();
 
         const currentFreeCuts =
-          userData.freeCuts || 0;
+          Number(userData.freeCuts || 0);
 
-        if (useFreeCut && currentFreeCuts <= 0) {
+        if (
+          useFreeCut &&
+          currentFreeCuts <= 0
+        ) {
           throw new Error(
             "Você não possui um corte grátis disponível."
           );
@@ -116,16 +139,28 @@ export default function Confirmation() {
 
         const newAppointment = {
           userId: user.uid,
-          clientName: userData.name || user.email,
+          clientName:
+            userData.name ||
+            user.email,
+
           service: selectedService,
-          professional: selectedProfessional,
-          professionalId: selectedProfessional.id,
+
+          professional:
+            selectedProfessional,
+
+          professionalId:
+            selectedProfessional.id,
+
           date: selectedDate,
+
           time: selectedTime,
+
           status: "marcado",
-          paymentType: useFreeCut
-            ? "corte_gratis"
-            : "normal",
+
+          paymentType:
+            useFreeCut
+              ? "corte_gratis"
+              : "normal",
         };
 
         transaction.set(
@@ -134,20 +169,29 @@ export default function Confirmation() {
         );
 
         if (useFreeCut) {
-          transaction.update(userRef, {
-            freeCuts: currentFreeCuts - 1,
-          });
+          transaction.update(
+            userRef,
+            {
+              freeCuts:
+                currentFreeCuts - 1,
+            }
+          );
         }
       });
 
-      console.log("Agendamento salvo com sucesso.");
+      console.log(
+        "Agendamento salvo com sucesso."
+      );
 
       setConfirmed(true);
+
     } catch (error) {
+
       console.error(
         "Erro ao salvar agendamento:",
         error
       );
+
     } finally {
       setLoading(false);
     }
@@ -157,56 +201,97 @@ export default function Confirmation() {
     navigate("/scheduling", {
       state: {
         service: selectedService,
-        professional: selectedProfessional,
+        professional:
+          selectedProfessional,
       },
     });
   }
 
-  const freeCuts = profile?.freeCuts || 0;
+  const freeCuts =
+    Number(profile?.freeCuts || 0);
 
-  const finalPrice = useFreeCut
-    ? 0
-    : selectedService.price;
+  const finalPrice =
+    useFreeCut
+      ? 0
+      : selectedService.price;
 
   if (confirmed) {
     return (
       <main className="confirmation-page">
+
         <section className="confirmation-success">
+
           <div className="success-icon">
             ✓
           </div>
 
-          <h1>Agendamento confirmado!</h1>
+          <span className="success-eyebrow">
+            TUDO CERTO
+          </span>
+
+          <h1>
+            Agendamento confirmado
+          </h1>
 
           <p>
-            Seu horário foi confirmado com sucesso.
+            Seu horário foi reservado com sucesso.
           </p>
 
           <div className="success-summary">
-            <strong>{selectedService.name}</strong>
 
-            <span>
-              {selectedProfessional.name}
-            </span>
+            <div>
+              <span>Serviço</span>
 
-            <span>
-              {formatDate(selectedDate)} às {selectedTime}
-            </span>
+              <strong>
+                {selectedService.name}
+              </strong>
+            </div>
+
+            <div>
+              <span>Profissional</span>
+
+              <strong>
+                {selectedProfessional.name}
+              </strong>
+            </div>
+
+            <div>
+              <span>Data e horário</span>
+
+              <strong>
+                {formatDate(selectedDate)}
+                {" às "}
+                {selectedTime}
+              </strong>
+            </div>
 
             {useFreeCut && (
-              <span>
-                Corte grátis utilizado
-              </span>
+              <div className="success-free-cut">
+
+                <span>
+                  Benefício utilizado
+                </span>
+
+                <strong>
+                  Corte grátis
+                </strong>
+
+              </div>
             )}
+
           </div>
 
           <button
             className="home-button"
-            onClick={() => navigate("/home")}
+            onClick={() =>
+              navigate("/home")
+            }
           >
             Voltar para Home
           </button>
+
         </section>
+
       </main>
     );
   }
@@ -220,77 +305,114 @@ export default function Confirmation() {
           className="back-button"
           onClick={handleEdit}
         >
-          Voltar
+          ← Voltar
         </button>
 
-        <div>
-          <h1>Confirmar agendamento</h1>
+        <div className="confirmation-title">
+
+          <span className="confirmation-eyebrow">
+            ETAPA FINAL
+          </span>
+
+          <h1>
+            Confirmar agendamento
+          </h1>
 
           <p>
-            Confira as informações antes de confirmar.
+            Revise os detalhes do seu atendimento
+            antes de confirmar.
           </p>
+
         </div>
 
       </header>
 
       <section className="confirmation-card">
 
-        <div className="confirmation-item">
+        <div className="confirmation-card-heading">
 
-          <span>Serviço</span>
+          <span>
+            RESUMO DO AGENDAMENTO
+          </span>
 
-          <strong>
-            {selectedService.name}
-          </strong>
-
-          <p>
-            {selectedService.duration} min
-          </p>
+          <h2>
+            Confira os detalhes
+          </h2>
 
         </div>
 
-        <div className="confirmation-item">
+        <div className="confirmation-details">
 
-          <span>Profissional</span>
+          <div className="confirmation-item">
 
-          <strong>
-            {selectedProfessional.name}
-          </strong>
+            <span>
+              Serviço
+            </span>
 
-          <p>
-            {selectedProfessional.specialty}
-          </p>
+            <strong>
+              {selectedService.name}
+            </strong>
 
-        </div>
+            <p>
+              {selectedService.duration} minutos
+            </p>
 
-        <div className="confirmation-item">
+          </div>
 
-          <span>Data</span>
+          <div className="confirmation-item">
 
-          <strong>
-            {formatDate(selectedDate)}
-          </strong>
+            <span>
+              Profissional
+            </span>
 
-        </div>
+            <strong>
+              {selectedProfessional.name}
+            </strong>
 
-        <div className="confirmation-item">
+            <p>
+              {selectedProfessional.specialty}
+            </p>
 
-          <span>Horário</span>
+          </div>
 
-          <strong>
-            {selectedTime}
-          </strong>
+          <div className="confirmation-item">
+
+            <span>
+              Data
+            </span>
+
+            <strong>
+              {formatDate(selectedDate)}
+            </strong>
+
+          </div>
+
+          <div className="confirmation-item">
+
+            <span>
+              Horário
+            </span>
+
+            <strong>
+              {selectedTime}
+            </strong>
+
+          </div>
 
         </div>
 
         <div className="confirmation-price">
 
-          <span>Valor</span>
+          <span>
+            Valor do atendimento
+          </span>
 
           <strong>
-            R$ {finalPrice
-              .toFixed(2)
-              .replace(".", ",")}
+            {useFreeCut
+              ? "Corte grátis"
+              : `R$ ${finalPrice
+                  .toFixed(2)
+                  .replace(".", ",")}`}
           </strong>
 
         </div>
@@ -298,6 +420,7 @@ export default function Confirmation() {
       </section>
 
       {freeCuts > 0 && (
+
         <section className="free-cut-option">
 
           <label className="free-cut-checkbox">
@@ -320,11 +443,14 @@ export default function Confirmation() {
 
           <p>
             Você possui{" "}
-            <strong>{freeCuts}</strong>{" "}
+            <strong>
+              {freeCuts}
+            </strong>{" "}
             corte(s) grátis disponível(is).
           </p>
 
         </section>
+
       )}
 
       <section className="confirmation-actions">
@@ -334,7 +460,7 @@ export default function Confirmation() {
           onClick={handleEdit}
           disabled={loading}
         >
-          Editar
+          Editar agendamento
         </button>
 
         <button

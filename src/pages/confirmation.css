@@ -1,128 +1,200 @@
+/* =========================
+   CONFIRMATION
+========================= */
+
 .confirmation-page {
   min-height: 100vh;
-
-  padding: 36px 28px 48px;
-
+  padding: 40px 24px 60px;
   background-color: var(--background);
   color: var(--text);
 }
 
+.confirmation-header {
+  width: min(900px, 100%);
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.confirmation-title {
+  flex: 1;
+}
+
+.confirmation-eyebrow,
+.success-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.confirmation-title h1 {
+  margin: 0;
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 1.1;
+}
+
+.confirmation-title p {
+  margin: 10px 0 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
 
 /* =========================
-   CABEÇALHO
+   BOTÃO VOLTAR
 ========================= */
 
-.confirmation-header {
-  width: 100%;
-  max-width: 800px;
-
-  margin: 0 auto 30px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 20px;
-}
-
-.confirmation-header h1 {
-  margin-bottom: 5px;
-
-  font-size: clamp(26px, 4vw, 32px);
-}
-
-.confirmation-header p {
-  color: var(--muted);
-
+.confirmation-page .back-button {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
   font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.confirmation-page .back-button:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
 }
 
 
 /* =========================
-   RESUMO
+   CARD PRINCIPAL
 ========================= */
 
 .confirmation-card {
-  width: 100%;
-  max-width: 800px;
-
-  margin: auto;
-  padding: 26px;
-
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 22px;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 28px;
   background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-sizing: border-box;
+}
 
-  box-shadow: var(--shadow-card);
+.confirmation-card-heading {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.confirmation-card-heading > span {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.confirmation-card-heading h2 {
+  margin: 6px 0 0;
+  font-size: 20px;
+}
+
+
+/* =========================
+   DETALHES
+========================= */
+
+.confirmation-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
 }
 
 .confirmation-item {
-  padding-bottom: 16px;
-
+  min-height: 105px;
+  padding: 22px 20px;
   border-bottom: 1px solid var(--border);
+}
+
+.confirmation-item:nth-child(odd) {
+  border-right: 1px solid var(--border);
 }
 
 .confirmation-item span {
   display: block;
-
-  margin-bottom: 5px;
-
-  color: var(--muted);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.06em;
+  margin-bottom: 7px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .confirmation-item strong {
-  color: var(--text);
-
-  font-size: 17px;
+  display: block;
+  font-size: 16px;
+  line-height: 1.4;
 }
 
 .confirmation-item p {
-  margin-top: 4px;
-
-  color: var(--muted);
-
+  margin: 6px 0 0;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 
 
 /* =========================
-   VALOR
+   PREÇO
 ========================= */
 
 .confirmation-price {
-  grid-column: 1 / -1;
-
-  padding-top: 4px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 20px;
+  padding-top: 24px;
 }
 
 .confirmation-price span {
-  color: var(--muted);
-
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
 .confirmation-price strong {
-  color: var(--text);
-
   font-size: 24px;
+}
+
+
+/* =========================
+   CORTE GRÁTIS
+========================= */
+
+.free-cut-option {
+  width: min(900px, 100%);
+  margin: 18px auto 0;
+  padding: 20px 22px;
+  box-sizing: border-box;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.free-cut-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.free-cut-checkbox input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--text);
+  cursor: pointer;
+}
+
+.free-cut-option p {
+  margin: 9px 0 0 27px;
+  color: var(--text-secondary);
+  font-size: 13px;
 }
 
 
@@ -131,58 +203,52 @@
 ========================= */
 
 .confirmation-actions {
-  width: 100%;
-  max-width: 800px;
-
-  margin: 24px auto 0;
-
-  display: flex;
-  justify-content: flex-end;
-
+  width: min(900px, 100%);
+  margin: 22px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
   gap: 12px;
 }
 
-.edit-button,
-.confirm-button {
-  padding: 12px 20px;
-
-  border-radius: var(--radius-small);
-
+.confirmation-actions button,
+.confirmation-warning button,
+.home-button {
+  min-height: 48px;
+  border-radius: 11px;
+  font-size: 14px;
   font-weight: 700;
-
-  transition:
-    transform var(--transition),
-    opacity var(--transition),
-    border-color var(--transition);
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .edit-button {
-  border: 1px solid var(--border-strong);
-
-  background-color: var(--surface);
+  border: 1px solid var(--border);
+  background: transparent;
   color: var(--text);
 }
 
-.confirm-button {
-  border: none;
-
-  background-color: var(--text);
-  color: var(--surface);
-
-  box-shadow: var(--shadow-small);
-}
-
-.edit-button:hover,
-.confirm-button:hover {
-  transform: translateY(-1px);
-}
-
 .edit-button:hover {
-  border-color: var(--text);
+  background: var(--surface);
+  border-color: var(--border-strong);
 }
 
-.confirm-button:hover {
-  opacity: 0.92;
+.confirm-button,
+.home-button,
+.confirmation-warning button {
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: var(--background);
+}
+
+.confirm-button:hover,
+.home-button:hover,
+.confirmation-warning button:hover {
+  opacity: 0.88;
+}
+
+.confirmation-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 
@@ -191,102 +257,75 @@
 ========================= */
 
 .confirmation-success {
-  width: calc(100% - 32px);
-  max-width: 520px;
-
-  margin: 90px auto;
-  padding: 38px;
-
+  width: min(620px, 100%);
+  margin: 60px auto 0;
+  padding: 36px;
+  box-sizing: border-box;
   text-align: center;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-large);
-
   background-color: var(--surface);
-
-  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
 }
 
 .success-icon {
-  width: 64px;
-  height: 64px;
-
-  margin: 0 auto 20px;
-
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
-
   background-color: var(--text);
-  color: var(--surface);
-
-  font-size: 30px;
+  color: var(--background);
+  font-size: 28px;
   font-weight: 700;
+}
 
-  box-shadow: var(--shadow-small);
+.success-eyebrow {
+  margin-bottom: 8px;
 }
 
 .confirmation-success h1 {
-  margin-bottom: 10px;
-
-  font-size: 26px;
+  margin: 0;
+  font-size: clamp(27px, 5vw, 36px);
 }
 
 .confirmation-success > p {
-  margin-bottom: 26px;
-
-  color: var(--muted);
+  margin: 10px 0 28px;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .success-summary {
   margin-bottom: 24px;
-  padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 6px;
-
   border: 1px solid var(--border);
-  border-radius: 12px;
-
-  background-color: var(--background);
+  border-radius: 13px;
+  overflow: hidden;
+  text-align: left;
 }
 
-.success-summary strong {
-  color: var(--text);
+.success-summary > div {
+  padding: 15px 17px;
+  border-bottom: 1px solid var(--border);
+}
+
+.success-summary > div:last-child {
+  border-bottom: none;
 }
 
 .success-summary span {
-  color: var(--muted);
-
-  font-size: 13px;
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
 }
 
-.home-button {
-  width: 100%;
-
-  padding: 12px;
-
-  border: none;
-  border-radius: var(--radius-small);
-
-  background-color: var(--text);
-  color: var(--surface);
-
-  font-weight: 700;
-
-  transition:
-    transform var(--transition),
-    opacity var(--transition);
+.success-summary strong {
+  font-size: 14px;
 }
 
-.home-button:hover {
-  opacity: 0.92;
-
-  transform: translateY(-1px);
+.success-free-cut {
+  background-color: rgba(244, 247, 245, 0.04);
 }
 
 
@@ -295,85 +334,84 @@
 ========================= */
 
 .confirmation-warning {
-  width: calc(100% - 32px);
-  max-width: 500px;
-
-  margin: 100px auto;
+  width: min(500px, 100%);
+  margin: 80px auto;
   padding: 34px;
-
+  box-sizing: border-box;
   text-align: center;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-
   background-color: var(--surface);
-
-  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
 }
 
 .confirmation-warning h1 {
-  margin-bottom: 10px;
+  margin: 8px 0 10px;
+  font-size: 28px;
 }
 
 .confirmation-warning p {
-  margin-bottom: 22px;
-
-  color: var(--muted);
+  margin: 0 0 24px;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .confirmation-warning button {
-  padding: 11px 18px;
-
-  border: none;
-  border-radius: var(--radius-small);
-
-  background-color: var(--text);
-  color: var(--surface);
-
-  font-weight: 700;
+  width: 100%;
 }
 
 
 /* =========================
-   RESPONSIVIDADE
+   RESPONSIVO
 ========================= */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   .confirmation-page {
-    padding: 24px 16px 36px;
+    padding: 24px 16px 40px;
   }
 
   .confirmation-header {
-    align-items: flex-start;
     flex-direction: column;
+    gap: 18px;
+    margin-bottom: 22px;
   }
 
-  .confirmation-header .back-button {
-    width: 100%;
+  .confirmation-page .back-button {
+    align-self: flex-start;
   }
 
   .confirmation-card {
-    grid-template-columns: 1fr;
+    padding: 20px;
+    border-radius: 15px;
+  }
 
-    padding: 22px;
+  .confirmation-details {
+    grid-template-columns: 1fr;
+  }
+
+  .confirmation-item {
+    min-height: auto;
+    padding: 17px 0;
+  }
+
+  .confirmation-item:nth-child(odd) {
+    border-right: none;
   }
 
   .confirmation-price {
-    grid-column: auto;
+    padding-top: 20px;
   }
 
   .confirmation-actions {
-    flex-direction: column;
-  }
-
-  .edit-button,
-  .confirm-button {
-    width: 100%;
+    grid-template-columns: 1fr;
   }
 
   .confirmation-success {
-    margin-top: 50px;
+    margin-top: 25px;
+    padding: 26px 20px;
+  }
 
-    padding: 30px 22px;
+  .confirmation-warning {
+    margin: 40px auto;
+    padding: 25px 20px;
   }
 }

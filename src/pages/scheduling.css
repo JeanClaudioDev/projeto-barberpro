@@ -1,10 +1,13 @@
+/* =========================
+   SCHEDULING
+========================= */
+
 .scheduling-page {
   min-height: 100vh;
-
-  padding: 36px 28px 48px;
-
+  padding: 40px 24px 120px;
   background-color: var(--background);
   color: var(--text);
+  box-sizing: border-box;
 }
 
 
@@ -13,27 +16,54 @@
 ========================= */
 
 .scheduling-header {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: 0 auto 30px;
-
+  width: min(1000px, 100%);
+  margin: 0 auto 28px;
   display: flex;
-  align-items: center;
-
-  gap: 20px;
+  align-items: flex-start;
+  gap: 24px;
 }
 
-.scheduling-header h1 {
-  margin-bottom: 5px;
-
-  font-size: clamp(26px, 4vw, 32px);
+.scheduling-title {
+  flex: 1;
 }
 
-.scheduling-header p {
-  color: var(--muted);
+.scheduling-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
 
+.scheduling-title h1 {
+  margin: 0;
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 1.1;
+}
+
+.scheduling-title p {
+  margin: 10px 0 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.scheduling-page .back-button {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
   font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.scheduling-page .back-button:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
 }
 
 
@@ -42,53 +72,42 @@
 ========================= */
 
 .scheduling-summary {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: 0 auto 24px;
-
+  width: min(1000px, 100%);
+  margin: 0 auto 28px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .summary-item {
-  padding: 22px;
+  padding: 20px 22px;
+}
 
-  display: flex;
-  flex-direction: column;
-
-  gap: 5px;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-
-  background-color: var(--surface);
-
-  box-shadow: var(--shadow-small);
+.summary-item:first-child {
+  border-right: 1px solid var(--border);
 }
 
 .summary-item span {
-  color: var(--muted);
-
+  display: block;
+  margin-bottom: 7px;
+  color: var(--text-secondary);
   font-size: 11px;
   font-weight: 700;
-
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-
-  letter-spacing: 0.07em;
 }
 
 .summary-item strong {
-  color: var(--text);
-
-  font-size: 18px;
+  display: block;
+  font-size: 16px;
 }
 
 .summary-item p {
-  color: var(--muted);
-
+  margin: 6px 0 0;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 
@@ -98,102 +117,106 @@
 ========================= */
 
 .scheduling-content {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: auto;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 20px;
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 18px;
 }
 
 .date-section,
 .time-section {
   padding: 24px;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-
   background-color: var(--surface);
-
-  box-shadow: var(--shadow-small);
+  border: 1px solid var(--border);
+  border-radius: 16px;
 }
 
-.date-section h2,
-.time-section h2 {
-  margin-bottom: 18px;
+.scheduling-section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 22px;
+}
 
-  color: var(--text);
+.scheduling-section-heading > span {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+}
 
+.scheduling-section-heading h2 {
+  margin: 0;
   font-size: 18px;
+}
+
+.scheduling-section-heading p {
+  margin: 4px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 
 /* =========================
-   DATA
+   DATAS
 ========================= */
+
 .date-grid {
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(90px, 1fr));
-
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
 }
 
 .date-button {
-  padding: 14px 10px;
-
+  min-height: 74px;
+  padding: 10px 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  justify-content: center;
   gap: 5px;
-
   border: 1px solid var(--border);
-  border-radius: var(--radius-small);
-
-  background-color: var(--background);
+  border-radius: 11px;
+  background: transparent;
   color: var(--text);
-
-  transition:
-    transform var(--transition),
-    border-color var(--transition),
-    background-color var(--transition);
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .date-button span {
-  color: var(--muted);
-
-  font-size: 11px;
+  color: var(--text-secondary);
+  font-size: 10px;
   font-weight: 700;
-
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .date-button strong {
-  font-size: 20px;
+  font-size: 21px;
 }
 
 .date-button:hover {
-  border-color: var(--text);
-
-  transform: translateY(-1px);
+  background-color: var(--background);
+  border-color: var(--border-strong);
 }
 
 .date-button.selected {
-  border-color: var(--text);
-
   background-color: var(--text);
-  color: var(--surface);
-
-  box-shadow: var(--shadow-small);
+  border-color: var(--text);
+  color: var(--background);
 }
 
 .date-button.selected span {
-  color: var(--surface);
+  color: var(--background);
+  opacity: 0.7;
 }
 
 
@@ -203,193 +226,32 @@
 
 .time-grid {
   display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(84px, 1fr));
-
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
 }
 
 .time-button {
-  padding: 11px 8px;
-
+  min-height: 44px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-small);
-
-  background-color: var(--background);
+  border-radius: 9px;
+  background: transparent;
   color: var(--text);
-
   font-size: 13px;
   font-weight: 600;
-
-  transition:
-    transform var(--transition),
-    border-color var(--transition),
-    background-color var(--transition),
-    color var(--transition);
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .time-button:hover {
-  border-color: var(--text);
-
-  transform: translateY(-1px);
+  background-color: var(--background);
+  border-color: var(--border-strong);
 }
 
 .time-button.selected {
+  background-color: var(--text);
   border-color: var(--text);
-
-  background-color: var(--text);
-  color: var(--surface);
-
-  box-shadow: var(--shadow-small);
+  color: var(--background);
 }
-
-.time-message {
-  padding: 28px;
-
-  text-align: center;
-
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius-small);
-
-  color: var(--muted);
-}
-
-
-/* =========================
-   RODAPÉ
-========================= */
-
-.scheduling-footer {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: 24px auto 0;
-
-  display: flex;
-  justify-content: flex-end;
-}
-
-.continue-button {
-  min-width: 160px;
-
-  padding: 12px 26px;
-
-  border: none;
-  border-radius: var(--radius-small);
-
-  background-color: var(--text);
-  color: var(--surface);
-
-  font-weight: 700;
-
-  box-shadow: var(--shadow-small);
-
-  transition:
-    opacity var(--transition),
-    transform var(--transition);
-}
-
-.continue-button:not(:disabled):hover {
-  opacity: 0.92;
-
-  transform: translateY(-1px);
-}
-
-.continue-button:disabled {
-  opacity: 0.35;
-
-  cursor: not-allowed;
-
-  box-shadow: none;
-}
-
-
-/* =========================
-   AVISO
-========================= */
-
-.scheduling-warning {
-  width: calc(100% - 32px);
-  max-width: 500px;
-
-  margin: 100px auto;
-  padding: 34px;
-
-  text-align: center;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-
-  background-color: var(--surface);
-
-  box-shadow: var(--shadow-card);
-}
-
-.scheduling-warning h1 {
-  margin-bottom: 10px;
-}
-
-.scheduling-warning p {
-  margin-bottom: 22px;
-
-  color: var(--muted);
-}
-
-.scheduling-warning button {
-  padding: 11px 18px;
-
-  border: none;
-  border-radius: var(--radius-small);
-
-  background-color: var(--text);
-  color: var(--surface);
-
-  font-weight: 700;
-}
-
-
-/* =========================
-   RESPONSIVIDADE
-========================= */
-
-@media (max-width: 600px) {
-  .scheduling-page {
-    padding: 24px 16px 36px;
-  }
-
-  .scheduling-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .scheduling-header .back-button {
-    width: 100%;
-  }
-
-  .scheduling-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .date-section,
-  .time-section {
-    padding: 20px;
-  }
-
-  .date-section input {
-    max-width: none;
-  }
-
-  .scheduling-footer {
-    display: block;
-  }
-
-  .continue-button {
-    width: 100%;
-  }
-}
-/* =========================
-   HORÁRIOS INDISPONÍVEIS
-========================= */
 
 .time-button.occupied {
   background-color: #3a3d40;
@@ -402,4 +264,217 @@
 .time-button.occupied:hover {
   transform: none;
   border-color: #3a3d40;
+}
+
+
+/* =========================
+   MENSAGEM
+========================= */
+
+.time-message {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.time-message p {
+  max-width: 220px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   RODAPÉ FIXO
+========================= */
+
+.scheduling-footer {
+  width: min(1000px, 100%);
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 10;
+  transform: translateX(-50%);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-sizing: border-box;
+  background-color: rgba(34, 40, 35, 0.96);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 15px 15px 0 0;
+  backdrop-filter: blur(10px);
+}
+
+.selected-time-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.selected-time-summary span {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.selected-time-summary strong {
+  font-size: 15px;
+}
+
+.continue-button {
+  min-width: 180px;
+  min-height: 46px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--text);
+  color: var(--background);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.continue-button:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.continue-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   AVISO
+========================= */
+
+.scheduling-warning {
+  width: min(500px, 100%);
+  margin: 80px auto;
+  padding: 34px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.scheduling-warning h1 {
+  margin: 8px 0 10px;
+  font-size: 28px;
+}
+
+.scheduling-warning p {
+  margin: 0 0 24px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.scheduling-warning button {
+  width: 100%;
+  min-height: 46px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--text);
+  color: var(--background);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 800px) {
+  .scheduling-content {
+    grid-template-columns: 1fr;
+  }
+
+  .time-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .scheduling-page {
+    padding: 24px 16px 110px;
+  }
+
+  .scheduling-header {
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  .scheduling-page .back-button {
+    align-self: flex-start;
+  }
+
+  .scheduling-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-item:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .date-section,
+  .time-section {
+    padding: 20px 16px;
+  }
+
+  .date-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .date-button {
+    min-height: 68px;
+  }
+
+  .time-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .scheduling-footer {
+    left: 0;
+    width: 100%;
+    transform: none;
+    padding: 12px 16px;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .continue-button {
+    min-width: 145px;
+  }
+}
+
+@media (max-width: 420px) {
+  .date-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .scheduling-footer {
+    gap: 10px;
+  }
+
+  .selected-time-summary {
+    min-width: 0;
+  }
+
+  .continue-button {
+    min-width: 135px;
+    padding: 0 14px;
+  }
 }
