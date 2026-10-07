@@ -1,41 +1,79 @@
+/* =========================
+   PROFILE
+========================= */
+
 .profile-page {
   min-height: 100vh;
-
   padding: 36px 28px 48px;
-
-  background-color: var(--background);
+  background-color: var(--page-background);
   color: var(--text);
 }
 
+.profile-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--text);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* =========================
-   CABEÇALHO
+   HEADER
 ========================= */
 
 .profile-header {
   width: 100%;
   max-width: 1100px;
-
   margin: 0 auto 30px;
-
   display: flex;
   align-items: center;
-
   gap: 20px;
 }
 
-.profile-header h1 {
-  margin-bottom: 5px;
+.profile-back-button {
+  padding: 8px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
+  background-color: transparent;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition);
+}
 
+.profile-back-button:hover {
+  background-color: var(--surface);
+  border-color: var(--text);
+}
+
+.profile-header h1 {
+  margin: 0 0 5px;
   font-size: clamp(26px, 4vw, 32px);
+  line-height: 1.2;
 }
 
 .profile-header p {
+  margin: 0;
   color: var(--muted);
-
   font-size: 14px;
 }
-
 
 /* =========================
    LAYOUT
@@ -44,25 +82,23 @@
 .profile-layout {
   width: 100%;
   max-width: 1100px;
-
-  margin: auto;
-
+  margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
-
   gap: 24px;
 }
 
 .profile-main,
 .profile-sidebar {
   min-width: 0;
-
   display: flex;
   flex-direction: column;
-
   gap: 20px;
 }
 
+.profile-sidebar {
+  align-self: start;
+}
 
 /* =========================
    CARDS
@@ -70,47 +106,45 @@
 
 .profile-card {
   padding: 24px;
-
+  box-sizing: border-box;
   border: 1px solid var(--border);
   border-radius: var(--radius-medium);
-
   background-color: var(--surface);
-
   box-shadow: var(--shadow-small);
 }
 
 .profile-card h2 {
+  margin: 0;
   color: var(--text);
-
   font-size: 18px;
 }
 
 .profile-card-header {
   margin-bottom: 20px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 15px;
 }
 
 .profile-card-label {
-  margin-bottom: 14px;
-
+  margin: 0 0 14px;
   color: var(--muted);
-
   font-size: 11px;
   font-weight: 700;
-
   text-transform: uppercase;
-
   letter-spacing: 0.08em;
 }
 
+.section-description {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
 
 /* =========================
-   DADOS
+   DADOS DA CONTA
 ========================= */
 
 .profile-data {
@@ -120,7 +154,6 @@
 
 .profile-data-item {
   padding: 14px 0;
-
   border-bottom: 1px solid var(--border);
 }
 
@@ -130,27 +163,22 @@
 
 .profile-data-item:last-child {
   padding-bottom: 0;
-
   border-bottom: none;
 }
 
 .profile-data-item span {
   display: block;
-
   margin-bottom: 4px;
-
   color: var(--muted);
-
   font-size: 11px;
   font-weight: 600;
 }
 
 .profile-data-item strong {
   color: var(--text);
-
   font-size: 14px;
+  word-break: break-word;
 }
-
 
 /* =========================
    AGENDAMENTOS
@@ -158,82 +186,160 @@
 
 .appointments-empty {
   min-height: 170px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   gap: 16px;
-
   text-align: center;
-
   color: var(--muted);
 }
 
 .appointments-empty button,
 .new-appointment-button {
   padding: 10px 16px;
-
   border: none;
   border-radius: var(--radius-small);
-
   background-color: var(--text);
   color: var(--surface);
-
   font-weight: 700;
-
-  transition:
-    transform var(--transition),
-    opacity var(--transition);
+  cursor: pointer;
+  transition: transform var(--transition), opacity var(--transition);
 }
 
 .appointments-empty button:hover,
 .new-appointment-button:hover {
   opacity: 0.92;
-
   transform: translateY(-1px);
 }
 
 .appointments-list {
   display: flex;
   flex-direction: column;
-
   gap: 12px;
 }
 
 .appointment-card {
   padding: 17px;
-
+  box-sizing: border-box;
   border: 1px solid var(--border);
   border-radius: 12px;
-
   background-color: var(--background);
-
-  transition:
-    transform var(--transition),
-    border-color var(--transition);
+  transition: transform var(--transition), border-color var(--transition);
 }
 
 .appointment-card:hover {
   transform: translateY(-1px);
-
   border-color: var(--border-strong);
 }
 
 .appointment-card h3 {
-  margin-bottom: 5px;
-
+  margin: 0 0 5px;
   color: var(--text);
+  font-size: 16px;
 }
 
 .appointment-card p,
 .appointment-card span {
+  margin: 0;
   color: var(--muted);
-
   font-size: 13px;
 }
 
+.appointment-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.appointment-price,
+.free-cut-history {
+  margin-top: 9px;
+  color: var(--text) !important;
+  font-size: 13px !important;
+  font-weight: 700;
+}
+
+.history-empty {
+  min-height: 130px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.appointment-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.appointment-status {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px !important;
+  font-weight: 700;
+}
+
+.status-marked {
+  background-color: rgba(255, 193, 7, 0.12);
+  color: #ffc107 !important;
+}
+
+.status-completed {
+  background-color: rgba(76, 175, 80, 0.12);
+  color: #4caf50 !important;
+}
+
+.status-cancelled {
+  background-color: rgba(244, 67, 54, 0.12);
+  color: #f44336 !important;
+}
+
+/* =========================
+   CANCELAR / REMOVER
+========================= */
+
+.cancel-button {
+  margin-top: 14px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
+  background-color: transparent;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.cancel-button:hover {
+  background-color: var(--surface);
+  border-color: var(--text);
+  transform: translateY(-1px);
+}
+
+.delete-history-button {
+  margin-top: 14px;
+  padding: 8px 14px;
+  border: 1px solid rgba(244, 67, 54, 0.35);
+  border-radius: var(--radius-small);
+  background-color: transparent;
+  color: #f44336;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.delete-history-button:hover {
+  background-color: rgba(244, 67, 54, 0.08);
+  border-color: #f44336;
+  transform: translateY(-1px);
+}
 
 /* =========================
    FIDELIDADE
@@ -241,58 +347,81 @@
 
 .loyalty-points {
   margin-bottom: 15px;
-
   display: flex;
   align-items: flex-end;
-
   gap: 6px;
 }
 
 .loyalty-points strong {
   color: var(--text);
-
   font-size: 38px;
   line-height: 1;
 }
 
 .loyalty-points span {
   margin-bottom: 3px;
-
   color: var(--muted);
-
   font-size: 13px;
 }
 
 .loyalty-progress {
   width: 100%;
   height: 9px;
-
   overflow: hidden;
-
   border-radius: 999px;
-
   background-color: var(--background);
 }
 
 .loyalty-progress-fill {
   height: 100%;
-
   border-radius: inherit;
-
   background-color: var(--text);
-
   transition: width 0.35s ease;
 }
 
 .loyalty-message {
-  margin-top: 12px;
-
+  margin: 12px 0 0;
   color: var(--muted);
-
   font-size: 13px;
   line-height: 1.6;
 }
 
+.loyalty-redeem {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.redeem-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--radius-small);
+  background-color: var(--text);
+  color: var(--background);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.redeem-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.redeem-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.free-cuts-count {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.free-cuts-count strong {
+  color: var(--text);
+}
 
 /* =========================
    CONTA
@@ -300,67 +429,158 @@
 
 .account-description {
   margin: 10px 0 20px;
-
   color: var(--muted);
-
   font-size: 13px;
   line-height: 1.6;
 }
 
 .logout-button {
   width: 100%;
-
   padding: 11px;
-
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-small);
-
   background-color: transparent;
   color: var(--text);
-
   font-weight: 700;
-
-  transition:
-    border-color var(--transition),
-    background-color var(--transition),
-    transform var(--transition);
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition), transform var(--transition);
 }
 
 .logout-button:hover {
   border-color: var(--text);
-
   background-color: rgba(244, 247, 245, 0.05);
-
   transform: translateY(-1px);
 }
-.cancel-button {
-  margin-top: 12px;
-  margin-left: 8px;
 
-  padding: 8px 14px;
+/* =========================
+   MODAIS
+========================= */
 
-  border: 1px solid var(--border-strong);
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.confirmation-modal {
+  width: 100%;
+  max-width: 430px;
+  padding: 28px;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-small);
+  text-align: center;
+
+  animation: modalEnter 0.2s ease-out forwards;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-icon {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(244, 67, 54, 0.12);
+  color: #f44336;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.confirmation-modal h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.confirmation-modal > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.confirmation-modal > p strong {
+  color: var(--text);
+}
+
+.modal-details {
+  margin: 18px 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   border-radius: var(--radius-small);
+  background-color: var(--background);
+  color: var(--text);
+  font-size: 13px;
+}
 
+.modal-details span {
+  color: var(--muted);
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modal-secondary-button,
+.modal-danger-button {
+  padding: 11px 14px;
+  border-radius: var(--radius-small);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.modal-secondary-button {
+  border: 1px solid var(--border-strong);
   background-color: transparent;
   color: var(--text);
-
-  font-size: 13px;
-  font-weight: 600;
-
-  transition:
-    background-color var(--transition),
-    border-color var(--transition),
-    transform var(--transition);
 }
 
-.cancel-button:hover {
-  background-color: var(--surface);
-  border-color: var(--text);
+.modal-danger-button {
+  border: 1px solid #f44336;
+  background-color: #f44336;
+  color: #ffffff;
+}
 
+.modal-secondary-button:hover:not(:disabled),
+.modal-danger-button:hover:not(:disabled) {
   transform: translateY(-1px);
+  opacity: 0.92;
 }
 
+.modal-secondary-button:disabled,
+.modal-danger-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 /* =========================
    RESPONSIVIDADE
@@ -391,6 +611,10 @@
     width: 100%;
   }
 
+  .profile-card {
+    padding: 20px;
+  }
+
   .profile-card-header {
     align-items: flex-start;
     flex-direction: column;
@@ -403,45 +627,7 @@
   .profile-sidebar {
     display: flex;
   }
-}
-/* =========================
-   STATUS DOS AGENDAMENTOS
-========================= */
 
-.appointment-card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.appointment-status {
-  flex-shrink: 0;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-/* Agendado */
-.status-marked {
-  background-color: rgba(255, 193, 7, 0.12);
-  color: #ffc107;
-}
-
-/* Concluído */
-.status-completed {
-  background-color: rgba(76, 175, 80, 0.12);
-  color: #4caf50;
-}
-
-/* Cancelado */
-.status-cancelled {
-  background-color: rgba(244, 67, 54, 0.12);
-  color: #f44336;
-}
-
-@media (max-width: 600px) {
   .appointment-card-top {
     flex-direction: column;
   }
@@ -449,74 +635,12 @@
   .appointment-status {
     align-self: flex-start;
   }
-}
-.loyalty-redeem {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
 
-.redeem-button {
-  width: 100%;
-  padding: 12px 16px;
-  border: none;
-  border-radius: var(--radius-small);
-  background-color: var(--text);
-  color: var(--background);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform var(--transition),
-    opacity var(--transition);
-}
+  .modal-actions {
+    grid-template-columns: 1fr;
+  }
 
-.redeem-button:hover {
-  transform: translateY(-1px);
-}
-
-.redeem-button:active {
-  transform: translateY(0);
-}
-.free-cuts-count {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.free-cuts-count strong {
-  color: var(--text);
-}
-.free-cut-option {
-  margin-top: 18px;
-  padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-  background-color: var(--surface);
-}
-
-.free-cut-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.free-cut-checkbox input {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--text);
-  cursor: pointer;
-}
-
-.free-cut-option p {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.free-cut-option strong {
-  color: var(--text);
+  .confirmation-modal {
+    padding: 24px 20px;
+  }
 }
