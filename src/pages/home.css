@@ -1,10 +1,27 @@
+/* =========================
+   RESET LOCAL & CONTAINER
+========================= */
+
 .home-page {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-
-  padding: 36px 28px 48px;
-
-  background: var(--page-background);
+  background-color: var(--page-background);
   color: var(--text);
+}
+
+.home-page *,
+.home-page *::before,
+.home-page *::after {
+  box-sizing: border-box;
+}
+
+/* Container centralizado único para alinhamento uniforme */
+.home-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 
@@ -13,219 +30,149 @@
 ========================= */
 
 .home-header {
-  width: auto;
-  max-width: none;
+  width: 100%;
+  background-color: var(--header-footer);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  margin-bottom: 32px;
+}
 
-  margin:
-    -36px -28px 32px;
-
-  padding:
-    22px
-    max(28px, calc((100vw - 1200px) / 2));
-
+.home-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 24px;
-
-  background-color: var(--header-footer);
-
-  border-bottom:
-    1px solid rgba(255, 255, 255, 0.08);
-
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.18);
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
-.home-header > div {
-  min-width: 0;
-}
-.home-footer {
-  margin:
-    48px -28px -48px;
-
-  padding:
-    24px
-    max(28px, calc((100vw - 1200px) / 2));
-
+.home-header-info {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 20px;
-
-  background-color: var(--header-footer);
-
-  border-top:
-    1px solid rgba(255, 255, 255, 0.08);
-
-  color: var(--muted);
-}
-
-.home-footer p {
-  color: var(--text);
-
-  font-weight: 700;
-}
-
-.home-footer span {
-  font-size: 12px;
-}
-.home-logo {
-  margin-bottom: 5px;
-
-  color: var(--muted);
-
-  font-size: 13px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-}
-
-.home-header h1 {
-  margin-bottom: 4px;
-
-  color: var(--text);
-
-  font-size: clamp(26px, 4vw, 32px);
-  line-height: 1.2;
-}
-
-.home-subtitle {
-  color: var(--muted);
-
-  font-size: 14px;
-}
-
-
-/* Perfil */
-.home-header > div > .primary-button {
-  margin-bottom: 18px;
-
-  background-color: transparent;
-
-  border: 1px solid var(--border-strong);
-
-  font-size: 13px;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
 }
 
 
 /* =========================
-   LAYOUT
+   TIPOGRAFIA & LOGO
 ========================= */
 
-.home-layout {
-  width: 100%;
-  max-width: 1200px;
-
-  margin: auto;
-
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-
-  gap: 24px;
+.home-logo {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
-.home-main,
-.home-sidebar {
-  min-width: 0;
+.home-header h1 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: clamp(24px, 3.5vw, 32px);
+  line-height: 1.2;
+}
+
+.home-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   LAYOUT PRINCIPAL
+========================= */
+
+.home-main-wrapper {
+  flex: 1;
+  padding-bottom: 48px;
+}
+
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 32px;
+  align-items: start;
 }
 
 .home-main {
   display: flex;
   flex-direction: column;
-
-  gap: 26px;
+  gap: 32px;
+  min-width: 0;
 }
 
 .home-sidebar {
   display: flex;
   flex-direction: column;
-
-  gap: 20px;
+  gap: 24px;
+  min-width: 0;
 }
 
 
 /* =========================
-   HERO
+   HERO CARD
 ========================= */
 
 .hero-card {
   position: relative;
-
-  min-height: 240px;
-
-  padding: 34px;
-
+  min-height: 220px;
+  padding: 32px;
   display: flex;
   align-items: flex-end;
-
   overflow: hidden;
-
   border: 1px solid var(--border);
   border-radius: var(--radius-large);
-
   background:
     radial-gradient(
       circle at 85% 20%,
-      rgba(244, 247, 245, 0.09),
-      transparent 35%
+      rgba(244, 247, 245, 0.08),
+      transparent 40%
     ),
     linear-gradient(
       135deg,
       var(--surface),
       #303732
     );
-
   box-shadow: var(--shadow-card);
 }
 
 .hero-content {
   position: relative;
-
   z-index: 1;
-
   width: 100%;
-  max-width: 540px;
+  max-width: 520px;
 }
 
 .hero-small-text {
-  margin-bottom: 10px;
-
+  margin: 0 0 8px;
   color: var(--muted);
-
   font-size: 11px;
   font-weight: 700;
-
   text-transform: uppercase;
-
   letter-spacing: 0.1em;
 }
 
 .hero-content h2 {
-  margin-bottom: 8px;
-
+  margin: 0 0 8px;
   color: var(--text);
-
-  font-size: clamp(24px, 4vw, 32px);
-  line-height: 1.2;
+  font-size: clamp(22px, 3.5vw, 28px);
+  line-height: 1.25;
 }
 
 .hero-content > p {
-  margin-bottom: 22px;
-
+  margin: 0 0 20px;
   color: var(--muted);
-
   font-size: 14px;
   line-height: 1.6;
 }
 
 
 /* =========================
-   SEÇÕES
+   SEÇÕES & CARDS DE SERVIÇO
 ========================= */
 
 .home-section {
@@ -233,116 +180,183 @@
 }
 
 .section-header {
-  margin-bottom: 14px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 12px;
+  margin-bottom: 16px;
 }
 
 .section-header h2 {
+  margin: 0;
   color: var(--text);
-
   font-size: 18px;
+  font-weight: 600;
+}
+
+.home-services-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.home-service-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-small);
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.home-service-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.home-service-category {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.home-service-card h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.home-service-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.home-service-card strong {
+  display: block;
+  margin-top: 16px;
+  color: var(--text);
+  font-size: 16px;
 }
 
 
 /* =========================
-   CARDS
+   CARDS DE CONTEÚDO & SIDEBAR
 ========================= */
 
 .empty-card,
-.side-card {
-  padding: 22px;
-
+.side-card,
+.home-appointment-card {
   border: 1px solid var(--border);
   border-radius: var(--radius-medium);
-
   background-color: var(--surface);
-
   box-shadow: var(--shadow-small);
 }
 
 .empty-card {
-  min-height: 110px;
-
+  padding: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   text-align: center;
-
   color: var(--muted);
-
   font-size: 14px;
 }
 
 .side-card {
-  transition:
-    transform var(--transition),
-    border-color var(--transition);
+  padding: 20px;
+  transition: transform var(--transition), border-color var(--transition);
 }
 
 .side-card:hover {
   border-color: var(--border-strong);
-
   transform: translateY(-2px);
 }
 
 .side-card h3 {
-  margin-bottom: 12px;
-
+  margin: 0 0 12px;
   color: var(--text);
-
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .secondary-text {
+  margin: 0;
   color: var(--muted);
-
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-
-/* =========================
-   INFORMAÇÕES
-========================= */
-
+/* Listas internas na Sidebar */
 .info-list {
   display: flex;
   flex-direction: column;
-
-  gap: 14px;
+  gap: 12px;
 }
 
 .info-item {
-  padding-bottom: 13px;
-
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
 }
 
 .info-item:last-child {
   padding-bottom: 0;
-
   border-bottom: none;
 }
 
 .info-title {
-  margin-bottom: 3px;
-
+  margin: 0 0 2px;
   color: var(--text);
-
   font-size: 13px;
   font-weight: 600;
 }
 
 .info-text {
+  margin: 0;
   color: var(--muted);
-
   font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* =========================
+   AGENDAMENTO CARD
+========================= */
+
+.home-appointment-card {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.home-appointment-card > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.home-appointment-card strong {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.home-appointment-card p,
+.home-appointment-card span {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 
@@ -353,64 +367,69 @@
 .primary-button,
 .light-button,
 .secondary-button,
-.text-button {
+.text-button,
+.home-profile-button {
+  font-family: inherit;
+  cursor: pointer;
   transition:
     transform var(--transition),
     opacity var(--transition),
-    border-color var(--transition);
+    border-color var(--transition),
+    background-color var(--transition);
+}
+
+.home-profile-button {
+  padding: 8px 12px;
+  background-color: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.home-profile-button:hover {
+  background-color: var(--surface);
+  border-color: var(--text);
+  transform: translateY(-1px);
 }
 
 .primary-button {
-  padding: 11px 18px;
-
+  padding: 10px 18px;
   border: 1px solid var(--border);
   border-radius: var(--radius-small);
-
   background-color: var(--surface);
   color: var(--text);
-
-  font-weight: 700;
-
+  font-weight: 600;
+  font-size: 13px;
   box-shadow: var(--shadow-small);
 }
 
+.light-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--radius-small);
+  background-color: var(--text);
+  color: var(--surface);
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: var(--shadow-small);
+}
 
 .primary-button:hover,
 .light-button:hover {
   transform: translateY(-1px);
 }
 
-.primary-button:active,
-.light-button:active {
-  transform: translateY(0);
-}
-
-.light-button {
-  padding: 11px 18px;
-
-  border: none;
-  border-radius: var(--radius-small);
-
-  background-color: var(--text);
-  color: var(--surface);
-
-  font-weight: 700;
-
-  box-shadow: var(--shadow-small);
-}
-
 .secondary-button {
   width: 100%;
-
-  margin-top: 16px;
-  padding: 10px;
-
+  margin-top: 14px;
+  padding: 9px 14px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-small);
-
   background-color: transparent;
   color: var(--text);
-
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -419,90 +438,59 @@
 }
 
 .text-button {
+  padding: 0;
   border: none;
-
   background: transparent;
   color: var(--muted);
-
+  font-size: 13px;
   font-weight: 600;
 }
 
 .text-button:hover {
   color: var(--text);
 }
-.next-appointment {
-  display: flex;
-  flex-direction: column;
 
-  gap: 6px;
-}
 
-.next-appointment strong {
-  color: var(--text);
+/* =========================
+   FOOTER
+========================= */
 
-  font-size: 15px;
-}
-
-.next-appointment p,
-.next-appointment span {
+.home-footer {
+  width: 100%;
+  margin-top: auto;
+  background-color: var(--header-footer);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--muted);
-
-  font-size: 13px;
 }
 
-
-.home-appointment-card {
-  min-height: 100px;
-
-  padding: 20px;
-
+.home-footer-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 20px;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-
-  background-color: var(--surface);
-
-  box-shadow: var(--shadow-small);
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
-.home-appointment-card > div {
-  display: flex;
-  flex-direction: column;
-
-  gap: 4px;
-}
-
-.home-appointment-card strong {
+.home-footer p {
+  margin: 0;
   color: var(--text);
+  font-weight: 700;
 }
 
-.home-appointment-card p,
-.home-appointment-card span {
-  color: var(--muted);
-
-  font-size: 13px;
+.home-footer span {
+  font-size: 12px;
 }
 
-
-@media (max-width: 600px) {
-  .home-appointment-card {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-}
 
 /* =========================
    RESPONSIVIDADE
 ========================= */
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .home-layout {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .home-sidebar {
@@ -511,126 +499,39 @@
   }
 }
 
-@media (max-width: 600px) {
-  .home-page {
-    padding: 24px 16px 36px;
+@media (max-width: 640px) {
+  .home-container {
+    padding: 0 16px;
   }
 
-  .home-header {
-    align-items: stretch;
+  .home-header-inner {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 
-  .home-header > .primary-button {
+  .home-header-inner > .primary-button {
     width: 100%;
   }
 
   .hero-card {
-    min-height: 210px;
-
     padding: 24px;
+    min-height: auto;
   }
 
+  .home-services-list,
   .home-sidebar {
-    display: flex;
-  }
-}
-@media (max-width: 600px) {
-  .home-header {
-    margin:
-      -24px -16px 28px;
-
-    padding: 20px 16px;
-
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .home-footer {
-    margin:
-      36px -16px -36px;
-
-    padding: 22px 16px;
-
-    align-items: flex-start;
-    flex-direction: column;
-  }
-}
-/* =========================
-   SERVIÇOS DA HOME
-========================= */
-
-.home-services-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.home-service-card {
-  min-height: 145px;
-
-  padding: 18px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-medium);
-
-  background-color: var(--surface);
-
-  box-shadow: var(--shadow-small);
-
-  transition:
-    transform var(--transition),
-    border-color var(--transition);
-}
-
-.home-service-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--border-strong);
-}
-
-.home-service-category {
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-}
-
-.home-service-card h3 {
-  margin-bottom: 5px;
-
-  color: var(--text);
-
-  font-size: 15px;
-  line-height: 1.35;
-}
-
-.home-service-card p {
-  color: var(--muted);
-
-  font-size: 12px;
-}
-
-.home-service-card strong {
-  margin-top: 14px;
-
-  color: var(--text);
-
-  font-size: 17px;
-}
-
-@media (max-width: 600px) {
-  .home-services-list {
     grid-template-columns: 1fr;
+  }
+
+  .home-appointment-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .home-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 }
