@@ -3,12 +3,18 @@ import { useNavigate } from "react-router-dom";
 
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
-import { auth, db } from "../services/firebase";
+import {
+  auth,
+  db,
+  googleProvider,
+} from "../services/firebase";
 
 import "./login.css";
 
@@ -37,25 +43,20 @@ function GoogleIcon() {
 
 export default function Login() {
   const navigate = useNavigate();
-  // Controla se estamos no Login ou Cadastro
-  const [mode, setMode] = useState("login");
 
-  // Controla se a senha aparece ou fica escondida
+  const [mode, setMode] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
 
-  // Dados digitados pelo usuário
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Guarda as mensagens de erro
   const [errors, setErrors] = useState({});
 
   function validateForm() {
     const newErrors = {};
 
-    // Nome e telefone só existem no cadastro
     if (mode === "register") {
       if (name.trim() === "") {
         newErrors.name = "Digite seu nome.";
@@ -75,7 +76,8 @@ export default function Login() {
     if (password.trim() === "") {
       newErrors.password = "Digite sua senha.";
     } else if (password.length < 6) {
-      newErrors.password = "A senha deve ter pelo menos 6 caracteres.";
+      newErrors.password =
+        "A senha deve ter pelo menos 6 caracteres.";
     }
 
     setErrors(newErrors);
@@ -83,58 +85,138 @@ export default function Login() {
     return Object.keys(newErrors).length === 0;
   }
 
- async function handleSubmit(event) {
-  event.preventDefault();
+  async function redirectUser(user) {
+    const userRef = doc(db, "users", user.uid);
+    const userSnapshot = await getDoc(userRef);
 
-  const formIsValid = validateForm();
+    if (userSnapshot.exists()) {
+      const userData = userSnapshot.data();
 
-  if (!formIsValid) {
-    return;
+      if (userData.role === "barbeiro") {
+        navigate("/barber-panel");
+        return;
+      }
+    }
+
+    navigate("/home");
   }
 
-  if (mode === "register") {
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const formIsValid = validateForm();
+
+    if (!formIsValid) {
+      return;
+    }
+
+    if (mode === "register") {
+      try {
+        const userCredential =
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+        const user = userCredential.user;
+
+        await setDoc(doc(db, "users", user.uid), {
+          name: name,
+          phone: phone,
+          email: email,
+          points: 0,
+          freeCuts: 0,
+        });
+
+        navigate("/home");
+      } catch (error) {
+        console.error("Erro no cadastro:", error);
+      }
+
+      return;
+    }
+
+    if (mode === "login") {
+      try {
+        const userCredential =
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+        await redirectUser(userCredential.user);
+      } catch (error) {
+        console.error("Erro no login:", error);
+      }
+    }
+  }
+
+  async function handleGoogleLogin() {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      const userCredential = await signInWithPopup(
         auth,
-        email,
-        password
+        googleProvider
       );
 
       const user = userCredential.user;
 
-      await setDoc(doc(db, "users", user.uid), {
-        name: name,
-        phone: phone,
-        email: email,
-        points: 0
-      });
+      const userRef = doc(db, "users", user.uid);
+      const userSnapshot = await getDoc(userRef);
 
-      navigate("/home");
+      if (!userSnapshot.exists()) {
+        await setDoc(userRef, {
+          name: user.displayName || "",
+          phone: "",
+          email: user.email || "",
+          points: 0,
+          freeCuts: 0,
+        });
+      }
+
+      await redirectUser(user);
     } catch (error) {
-      console.error("Erro no cadastro:", error);
+      console.error("Erro no login com Google:", error);
     }
-
-    return;
   }
 
-  if (mode === "login") {
+  async function handleForgotPassword() {
+    if (email.trim() === "") {
+      setErrors({
+        email: "Digite seu e-mail para recuperar a senha.",
+      });
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
+      await sendPasswordResetEmail(auth, email);
+
+      alert(
+        "Enviamos um link para redefinir sua senha. Verifique seu e-mail."
+      );
+    } catch (error) {
+      console.error(
+        "Erro ao recuperar senha:",
+        error
       );
 
-      navigate("/home");
-    } catch (error) {
-      console.error("Erro no login:", error);
+      if (error.code === "auth/user-not-found") {
+        setErrors({
+          email: "Não encontramos uma conta com esse e-mail.",
+        });
+      } else {
+        setErrors({
+          email:
+            "Não foi possível enviar o e-mail de recuperação.",
+        });
+      }
     }
   }
-}
+
   return (
     <main className="login-page">
 
-      {/* LADO ESQUERDO */}
       <section className="login-image">
         <div className="login-overlay"></div>
 
@@ -143,7 +225,6 @@ export default function Login() {
         </div>
       </section>
 
-      {/* LADO DIREITO */}
       <section className="login-form-area">
         <div className="login-content">
 
@@ -159,7 +240,6 @@ export default function Login() {
               : "Preencha seus dados para começar"}
           </p>
 
-          {/* LOGIN / CADASTRO */}
           <div className="mode-buttons">
             <button
               type="button"
@@ -171,7 +251,9 @@ export default function Login() {
 
             <button
               type="button"
-              className={mode === "register" ? "active" : ""}
+              className={
+                mode === "register" ? "active" : ""
+              }
               onClick={() => setMode("register")}
             >
               Cadastrar
@@ -179,7 +261,11 @@ export default function Login() {
           </div>
 
           {/* GOOGLE */}
-          <button type="button" className="google-button">
+          <button
+            type="button"
+            className="google-button"
+            onClick={handleGoogleLogin}
+          >
             <GoogleIcon />
             Continuar com Google
           </button>
@@ -192,7 +278,6 @@ export default function Login() {
 
           <form onSubmit={handleSubmit}>
 
-            {/* SÓ APARECE NO CADASTRO */}
             {mode === "register" && (
               <>
                 <div className="form-group">
@@ -201,7 +286,9 @@ export default function Login() {
                   <input
                     type="text"
                     value={name}
-                    onChange={(event) => setName(event.target.value)}
+                    onChange={(event) =>
+                      setName(event.target.value)
+                    }
                     placeholder="Ana Beatriz"
                   />
 
@@ -218,7 +305,9 @@ export default function Login() {
                   <input
                     type="tel"
                     value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
+                    onChange={(event) =>
+                      setPhone(event.target.value)
+                    }
                     placeholder="(85) 99999-9999"
                   />
 
@@ -231,14 +320,15 @@ export default function Login() {
               </>
             )}
 
-            {/* E-MAIL */}
             <div className="form-group">
               <label>E-mail</label>
 
               <input
                 type="email"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) =>
+                  setEmail(event.target.value)
+                }
                 placeholder="email@exemplo.com"
               />
 
@@ -249,13 +339,16 @@ export default function Login() {
               )}
             </div>
 
-            {/* SENHA */}
             <div className="form-group">
               <label>Senha</label>
 
               <div className="password-field">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
                   value={password}
                   onChange={(event) =>
                     setPassword(event.target.value)
@@ -269,7 +362,9 @@ export default function Login() {
                     setShowPassword(!showPassword)
                   }
                 >
-                  {showPassword ? "Ocultar" : "Mostrar"}
+                  {showPassword
+                    ? "Ocultar"
+                    : "Mostrar"}
                 </button>
               </div>
 
@@ -284,12 +379,16 @@ export default function Login() {
               <button
                 type="button"
                 className="forgot-password"
+                onClick={handleForgotPassword}
               >
                 Esqueceu a senha?
               </button>
             )}
 
-            <button type="submit" className="submit-button">
+            <button
+              type="submit"
+              className="submit-button"
+            >
               {mode === "login"
                 ? "Entrar"
                 : "Criar minha conta"}
